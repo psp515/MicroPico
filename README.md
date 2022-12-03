@@ -45,7 +45,7 @@ Most examples will be created with micropython, yet examples with c/c++ might oc
 
 To use this project simply downolad the [ThonnyIDE](https://thonny.org/) and this repository.
 <br/>
-Ofcourse you need to have any Raspberry Pi (i think) board (with micropython) and element you want to check.
+Ofcourse you need to have any Raspberry Pi Pico board (with micropython) and element you want to check.
 
 ### Usage 
 
