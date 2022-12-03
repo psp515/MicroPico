@@ -75,7 +75,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ### Contact
 
 <div align="center">
-  <a href="">
+  <a href="https://www.linkedin.com/in/lukasz-psp515-kolber/">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
   <a href="https://twitter.com/psp515">
