@@ -8,7 +8,7 @@ TODO
 
 ### Electric Symbol
 
-![led](https://github.com/psp515/MicroPico/blob/Photorezistor/images/led/led_symbol.png)
+<img src="https://github.com/psp515/MicroPico/blob/led/images/led/led_symbol.png" alt="symbol" height=256/>
 
 ### Example 
 
