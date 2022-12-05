@@ -45,7 +45,8 @@ Most examples will be created with micropython, yet examples with c/c++ might oc
 
 To use this project simply downolad the [ThonnyIDE](https://thonny.org/) and this repository.
 <br/>
-Ofcourse you need to have any Raspberry Pi (i think) board (with micropython) and element you want to check.
+Ofcourse you need to have any Raspberry Pi Pico board (with micropython) and element you want to check.
+(In order to use it on Raspbery Pi some functions may need some slight fixes)
 
 ### Usage 
 
@@ -63,7 +64,7 @@ DHT11 | ❌  | ❌ | ❌
 I2C LCD | ❌  | ❌ | ❌ 
 LCD | ❌  | ❌ | ❌ 
 Potentiometer | ❌  | ❌ | ❌ 
-Photorezistor  | ❌  | ❌ | ❌ 
+Photorezistor  | ✅  | ✅ | ❌ 
 Ultrasonic | ❌  | ❌ | ❌ 
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of proposed features (and known issues).
