@@ -17,10 +17,10 @@ class BaseLed():
         """
         Initializes led object and sets up PWM.
 
-        :param pin : PWM pin.
-        :param frequency : PWM frequency.
-        :param default_value : Value set after element initialization (convertet to duty, it is not duty).
-        :param interval_break_us : Interval length when changing diode light value.
+        :param pin: PWM pin.
+        :param frequency: PWM frequency.
+        :param default_value: Value set after element initialization (converted to duty, it is not duty).
+        :param interval_break_us: Interval length when changing diode light value.
         """
 
         self._led = PWM(Pin(pin))
@@ -44,7 +44,7 @@ class BaseLed():
     @duty.setter
     def duty(self, duty):
         """
-        Can be used to set element duty directly
+        Can be used to set element duty directly.
 
         :param duty: Duty to be set on element.
         """
@@ -117,9 +117,9 @@ class BaseLed():
         """
         Calculates led duty change interval.
 
-        :param total_time_ms: Total swap time span in miliseconds.
+        :param total_time_ms: Total swap time span in milliseconds.
         :param intervals: Number of incrementations of duty
-        :return: Interwal change break in microseconds.
+        :return: Interval change break in microseconds.
         """
         return int((total_time_ms * 1000) / intervals)
 
