@@ -14,9 +14,10 @@ class Led(BaseLed):
         """
         Blinks led. If led is on, method first disables led then blinks and after blinks automatically turns led on
         with previous value (Total time needed is extended by half of blink_time_ms or default_blink_time_ms).
+        Takes value argument in range 0-255.
 
         :param n: Number of blinks.
-        :param value: Blink glow.
+        :param value: Blink glow in range 0-255.
         :param blink_time_ms: Time for one blink.
         """
 
