@@ -42,14 +42,24 @@ Also in futre I am planning to create few project based on knowledge gained here
 <br/>
 
 <b>Used boards:</b>
-- Raspberry Pi Pico
-- Raspberry Pi Pico W
+<div>
+  <a href="">
+    <img src="https://img.shields.io/badge/Raspberry Pi Pico-Code?&logo=raspberrypi&logoColor=black&color=F1C232" />
+  </a>
+  </br>
+  <a href="">     
+    <img src="https://img.shields.io/badge/Raspberry Pi Pico W-Code?&logo=raspberrypi&logoColor=black&color=F1C232" />
+  </a>
+</div>
+
 
 ### Built With
 
 <div>
   <a>
     <img src="https://img.shields.io/badge/-Micropyhon-FFFFFF?logo=micropyhon" />
+  </a>
+  <a>
     <img src="https://img.shields.io/badge/-Python-FFFFFF?logo=python" />
   </a>
 </div>
