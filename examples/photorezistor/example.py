@@ -1,11 +1,11 @@
 from time import sleep
-from src.photorezistor.photorezistor import Photorezistor
+from photorezistor import Photorezistor
 
-# Remember to use 10k rezistor
+# Remember to upload all necessary files to RPIP board.
 
 pr = Photorezistor(26)
 
 while True:
-    print(f'light: {pr.read_percent(3)} %')
-    print(f'light: {pr.read()}')
+    print(f'light: {pr.readPercent(3)} %')
+    print(f'light: {pr.read()} %')
     sleep(1)
