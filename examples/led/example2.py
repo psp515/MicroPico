@@ -1,5 +1,5 @@
-from src.led.led import Led
-from src.photorezistor.photorezistor import Photorezistor
+from micropico import Led
+from micropico import Photorezistor
 from utime import sleep
 
 led = Led(0)
