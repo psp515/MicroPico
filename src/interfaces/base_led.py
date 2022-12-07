@@ -1,13 +1,13 @@
 from utime import sleep_us
 from machine import PWM, Pin
 
-from src.rpip_const import RPIP_MAX_READ
+from src.rpip_const import RPIP_MAX_PWM_DUTY
 
-# by default scale 0-255
-# but can set certain duty
 
 class BaseLed():
-    def __init__(self, pin, frequency=1000, default_duty=0, default_action_time_ms=200):
+    step_constant = 257
+
+    def __init__(self, pin, frequency=1000, default_duty=0, default_action_time_ms=500):
 
         # TODO : chcek if invalid pin
 
@@ -27,47 +27,48 @@ class BaseLed():
         self._duty = duty
         self._led.duty_u16(duty)
 
-    
     def on(self, value=None, animate_time_ms=None):
         if value is None:
             self._gently(self._on_duty(), animate_time_ms)
             return
 
-        value = max(min(value, 255), 0)
         duty = self._calc_duty(value)
-        if duty == self._duty:
+
+        if self._duty == duty:
             return
 
         self._gently(duty, animate_time_ms)
 
-
-    def off(self, time = None):
+    def off(self, animate_time_ms=None):
         if 0 == self._duty:
             return
 
-        self._gently(self._off_duty(), time)
+        self._gently(self._off_duty(), animate_time_ms)
 
-    def _gently(self, duty, time):
-        # TODO : refactor step=257 caculate number of steps and perform store value not duty ??
-        if time is None:
-            time = self._default_action_time_ms
+    def _gently(self, duty, animate_time_ms):
+        if animate_time_ms is None:
+            animate_time_ms = self._default_action_time_ms
 
-        span = self._step if duty > self._duty else -self._step
-        # value cannot equal 0 because _prev_duty check
-        timespan_us = self._calc_span_us(time, abs(self._duty - duty))
+        # 255*257 = 256^2 - 1 so 257 is step
+        step = self.step_constant if duty > self._duty else -self.step_constant
+        intervals = abs(self._duty - duty) / self.step_constant
 
-        for i in range(self._duty, duty, span):
-            self._led.duty_u16(i)
+        # value cannot equal 0 because _duty check
+        timespan_us = self._calc_span_us(animate_time_ms, intervals)
+
+        for i in range(intervals):
+            self._duty = self._duty + step
+            self._led.duty_u16(self._duty)
             sleep_us(timespan_us)
 
     def _calc_duty(self, value):
-        return (self._on_duty() * value) / 256
+        return value * 257
 
     def _calc_span_us(self, total_time_ms, intervals):
-        return int((total_time_ms*1000) / intervals)
+        return int((total_time_ms * 1000) / intervals)
 
     def _off_duty(self):
         return 0
 
     def _on_duty(self):
-        return RPIP_MAX_READ
+        return RPIP_MAX_PWM_DUTY
