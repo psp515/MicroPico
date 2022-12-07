@@ -1,10 +1,9 @@
+from src.interfaces.adc_sensor import ADCSensor
 
-
-class Photorezistor():
+class Photorezistor(ADCSensor):
     """
     Class creates ADC object as photorezistor.
     """
-    def __init__(self, adc_pin):
-        super(adc_pin)
+    pass
 
 

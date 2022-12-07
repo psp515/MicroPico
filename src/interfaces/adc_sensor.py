@@ -1,7 +1,7 @@
 from machine import ADC, Pin
 
-from exceptions.invalid_pin_exception import InvalidPinException
-from rpip_const import RPIP_ADC_PINS, RPIP_MAX_READ
+from src.exceptions.invalid_pin_exception import InvalidPinException
+from src.rpip_const import RPIP_ADC_PINS, RPIP_MAX_ADC
 
 
 class ADCSensor:
@@ -25,7 +25,7 @@ class ADCSensor:
         Returns maximal possible value that adc pin can return.
         :return: Maximal read pin value.
         """
-        return RPIP_MAX_READ
+        return RPIP_MAX_ADC
 
     def read_percent(self, precision=2):
         """
