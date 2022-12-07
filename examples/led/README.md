@@ -4,7 +4,7 @@
 </div>  
 <br/>
 
-TODO
+Light-emitting diode (LED) uses electroluminescence, when excess energy is generated in the diode, energy is emitted as light.
 
 ### Electric Symbol
 
