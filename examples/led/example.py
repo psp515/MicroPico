@@ -1,4 +1,4 @@
-from src.led.led import Led
+from micropico import Led
 from utime import sleep
 
 led = Led(0)

@@ -1,5 +1,5 @@
 from time import sleep
-from src.photorezistor.photorezistor import Photorezistor
+from micropico import Photorezistor
 
 # Remember to use 10k rezistor
 
