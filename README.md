@@ -66,7 +66,7 @@ Elements with added code examples and simple usage examples.
 
 Element  | Code | Example | Connection Schema
 :-: | :-: | :-: | :-: 
-Led | 🚧  | 🚧 | ❌
+Led | ✅   | ✅  | ❌
 RGB Led | ❌  | ❌ | ❌ 
 DHT11 | ❌  | ❌ | ❌ 
 I2C LCD | ❌  | ❌ | ❌ 
