@@ -47,7 +47,12 @@ Also in futre I am planning to create few project based on knowledge gained here
 
 ### Built With
 
-* Micropython
+<div>
+  <a>
+    <img src="https://img.shields.io/badge/-Micropyhon-FFFFFF?logo=micropyhon" />
+    <img src="https://img.shields.io/badge/-Python-FFFFFF?logo=python" />
+  </a>
+</div>
 
 ### Getting Started
 
