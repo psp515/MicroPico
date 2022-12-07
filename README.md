@@ -33,6 +33,14 @@ This repository will contain code with usage exaples (with example connections) 
 Most examples will be created with micropython, yet examples with c/c++ might occur.
 <br/>
 
+Also in futre I am planning to create few project based on knowledge gained here, like:
+
+- [ ] Keyboard
+- [ ] Weather Station
+- [ ] Drone 
+
+<br/>
+
 <b>Used boards:</b>
 - Raspberry Pi Pico
 - Raspberry Pi Pico W
@@ -50,7 +58,7 @@ Ofcourse you need to have any Raspberry Pi Pico board (with micropython) and ele
 
 ### Usage 
 
-You may want to use this repository in order to see how easy is to program with micropython or to see how elements might work and how to connect them properly.
+You may want to use this repository in order to see how easy is to create programs with micropython or to see how elements might work and how to connect them properly.
 
 ### Roadmap
 
@@ -63,11 +71,12 @@ RGB Led | ❌  | ❌ | ❌
 DHT11 | ❌  | ❌ | ❌ 
 I2C LCD | ❌  | ❌ | ❌ 
 LCD | ❌  | ❌ | ❌ 
+PIR | ❌  | ❌ | ❌ 
 Potentiometer | ❌  | ❌ | ❌ 
 Photorezistor  | ✅  | ✅ | ❌ 
 Ultrasonic | ❌  | ❌ | ❌ 
 
-See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
 ### License
 
