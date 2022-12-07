@@ -87,6 +87,7 @@ Led | ✅   | ✅  | ❌
 RGB Led | ❌  | ❌ | ❌ 
 DHT11 | ❌  | ❌ | ❌ 
 I2C LCD | ❌  | ❌ | ❌ 
+Keypad | ✅ | ✅ | ❌ 
 LCD | ❌  | ❌ | ❌ 
 PIR | ❌  | ❌ | ❌ 
 Potentiometer | ❌  | ❌ | ❌ 
