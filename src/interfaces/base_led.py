@@ -7,7 +7,7 @@ from src.rpip_const import RPIP_MAX_PWM_DUTY
 class BaseLed():
     step_constant = 257
 
-    def __init__(self, pin, frequency=1000, default_duty=0, default_action_time_ms=500):
+    def __init__(self, pin, frequency=1000, default_duty=0, interval_break_us=1500):
 
         # TODO : chcek if invalid pin
 
@@ -15,7 +15,7 @@ class BaseLed():
         self._led.freq(frequency)
         self._duty = default_duty
         self._led.duty_u16(default_duty)
-        self._default_action_time_ms = default_action_time_ms
+        self.interval_span_us = interval_break_us
 
     @property
     def duty(self):
@@ -46,15 +46,15 @@ class BaseLed():
         self._gently(self._off_duty(), animate_time_ms)
 
     def _gently(self, duty, animate_time_ms):
-        if animate_time_ms is None:
-            animate_time_ms = self._default_action_time_ms
+        # value cannot equal 0 because _duty check
+        intervals = abs(self._duty - duty) / self.step_constant
+
+        timespan_us = self.interval_span_us
+        if animate_time_ms is not None:
+            timespan_us = self._calc_span_us(animate_time_ms, intervals)
 
         # 255*257 = 256^2 - 1 so 257 is step
         step = self.step_constant if duty > self._duty else -self.step_constant
-        intervals = abs(self._duty - duty) / self.step_constant
-
-        # value cannot equal 0 because _duty check
-        timespan_us = self._calc_span_us(animate_time_ms, intervals)
 
         for i in range(intervals):
             self._duty = self._duty + step

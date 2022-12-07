@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Led </h1>
-  <p> TODO </p>
+  <p> Gamers likes that. </p>
 </div>  
 <br/>
 
@@ -10,8 +10,18 @@ TODO
 
 <img src="https://github.com/psp515/MicroPico/blob/led/images/led/led_symbol.png" alt="symbol" height=256/>
 
-### Example 
+### Examples
 
-Example is simple it read's value from pin every second and displays it.
+Ex. 1
+<br/>
+Example shows how on, off and blink works.
+<br/>
+Ex. 2
+<br/>
+Example uses photorezistor. Reads value from photorezistor then changes led brigntness. 
+<br/>
 
-TODO SCHEMA
+
+TODO SCHEMA 
+<br/>
+TODO SCHEMA WITH PHOTOREZISTOR

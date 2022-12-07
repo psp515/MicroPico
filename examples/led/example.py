@@ -1,5 +1,6 @@
 from src.led.led import Led
 from utime import sleep
+
 led = Led(0)
 
 sleep(1)
