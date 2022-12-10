@@ -1,15 +1,21 @@
 class Unit:
-    Meter = 1
+    Milimeter = 1
     Centimeter = 2
-    Inch = 3
+    Meter = 3
+    Inch = 4
 
 
+def ultrasonic_cast(unit):
+    """
+    Converts unit to constant used in calculations for ultrasonic distance sensor.
 
-def ultrasonic_cast(value):
-    if value == 1:
-        return 5800
-
-    if value == 2:
+    :param unit: Unit class object.
+    :return: Constant for ultrasonic sensor.
+    """
+    if unit == 2:
         return 58
-
-    return 148
+    if unit == 3:
+        return 5800
+    if unit == 4:
+        return 148
+    return 5.8
