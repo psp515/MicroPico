@@ -13,11 +13,11 @@ is bigger than aprox. 4.5m-5m we have unsuccesfull measurement.
 
 IEC standard
 
-<img src="https://github.com/psp515/MicroPico/blob/Photorezistor/images/photorezistor/photorezistor_symbol.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/Potentiometer/images/potentiometr/iec_potentiometer_symbol.png" alt="symbol" height=156/>
 
 ANSI standard
 
-<img src="https://github.com/psp515/MicroPico/blob/Photorezistor/images/photorezistor/photorezistor_symbol.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/Potentiometer/images/potentiometr/ansi_potentiometer_symbol.png" alt="symbol" height=256/>
 
 ### Example 
 
