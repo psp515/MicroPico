@@ -81,7 +81,7 @@ You may want to use this repository in order to see how easy is to create progra
 
 Elements with added code examples and simple usage examples.
 
-Element  | Code | Example | Connection Schema
+Element  | 'Lib' Code | Code Example | Example Connection Schemas
 :-: | :-: | :-: | :-: 
 Led | ✅   | ✅  | ❌
 RGB Led | ❌  | ❌ | ❌ 
@@ -92,7 +92,7 @@ LCD | ❌  | ❌ | ❌
 PIR | ❌  | ❌ | ❌ 
 Potentiometer | ❌  | ❌ | ❌ 
 Photorezistor  | ✅  | ✅ | ❌ 
-Ultrasonic | ❌  | ❌ | ❌ 
+Ultrasonic | ✅  | ✅ | ❌ 
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
