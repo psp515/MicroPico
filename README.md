@@ -90,7 +90,7 @@ I2C LCD | ❌  | ❌ | ❌
 Keypad | ✅ | ✅ | ❌ 
 LCD | ❌  | ❌ | ❌ 
 PIR | ❌  | ❌ | ❌ 
-Potentiometer | ❌  | ❌ | ❌ 
+Potentiometer | ✅  | ✅ | ❌ 
 Photorezistor  | ✅  | ✅ | ❌ 
 Ultrasonic | ✅  | ✅ | ❌ 
 
