@@ -1,7 +1,7 @@
 from machine import Pin
 import utime
 
-from src.tools.length_units_enum import Unit, ultrasonic_cast
+from src.enums.length_units_enum import LengthUnit, ultrasonic_cast
 
 class Ultrasonic:
     """
@@ -53,7 +53,7 @@ class Ultrasonic:
 
         return duration
 
-    def get_distance(self, unit=Unit.Centimeter, precision=1):
+    def get_distance(self, unit=LengthUnit.Centimeter, precision=1):
         """
         Returns measured distance in provided unit.
 

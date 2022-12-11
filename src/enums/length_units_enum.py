@@ -1,21 +1,25 @@
-class Unit:
+
+class LengthUnit:
+    """
+    Enum representing length units.
+    """
     Milimeter = 1
     Centimeter = 2
     Meter = 3
     Inch = 4
 
 
-def ultrasonic_cast(unit):
+def ultrasonic_cast(lengthUnit):
     """
     Converts unit to constant used in calculations for ultrasonic distance sensor.
 
-    :param unit: Unit class object.
+    :param lengthUnit: Unit class object.
     :return: Constant for ultrasonic sensor.
     """
-    if unit == 2:
+    if lengthUnit == 2:
         return 58
-    if unit == 3:
+    if lengthUnit == 3:
         return 5800
-    if unit == 4:
+    if lengthUnit == 4:
         return 148
     return 5.8

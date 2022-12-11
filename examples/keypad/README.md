@@ -11,14 +11,14 @@ Not found.
 
 ### Examples
 
-Ex. 1
-<br/>
+**Example 1**
+
 Example shows how 4x4 keyboard works.
-<br/>
-Ex. 2
-<br/>
+
+**Example 2**
+
 Example shows how 4(rows)x3(columns) keyboard works.
-<br/>
+
 
 
 TODO SCHEMA 
