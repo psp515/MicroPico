@@ -18,10 +18,7 @@ class TemperatureConverter:
         """
 
         if temperature_unit == TemperatureUnit.Celsius:
-            return value
-
-        if value < -273.15:
-            raise InvalidValueProvidedException("Value cannot be less than absolute zero.")
+            return round(value, precision)
 
         return self._converter(temperature_unit, value, precision, [
             lambda x: x,
@@ -41,10 +38,7 @@ class TemperatureConverter:
         """
 
         if temperature_unit == TemperatureUnit.Kelvin:
-            return value
-
-        if value < 0:
-            raise InvalidValueProvidedException("Value cannot be less than absolute zero.")
+            return round(value, precision)
 
         return self._converter(temperature_unit, value, precision, [
             lambda x: x - 273.15,
@@ -62,10 +56,7 @@ class TemperatureConverter:
         :return: Converted value to valid unit or value otherwise.
         """
         if temperature_unit == TemperatureUnit.Fahrenheit:
-            return value
-
-        if value < -459.67:
-            raise InvalidValueProvidedException("Value cannot be less than absolute zero.")
+            return round(value, precision)
 
         return self._converter(temperature_unit, value, precision, [
             lambda x: (x - 32) / 1.8,
