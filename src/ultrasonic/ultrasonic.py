@@ -3,6 +3,9 @@ import utime
 
 from src.enums.length_units_enum import LengthUnit, ultrasonic_cast
 
+
+# TODO : refactor like dht11
+
 class Ultrasonic:
     """
     Class for managing ultasonic distance sensor.

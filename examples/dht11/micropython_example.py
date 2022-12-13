@@ -8,6 +8,6 @@ sensor = DHT11(Pin(0))
 
 while True:
     sensor.measure()
-    print("T", sensor.temperature())
+    print("T", sensor._temperature())
     print("H", sensor.humidity())
     sleep(10)

@@ -4,7 +4,6 @@ from src.tools.temperature_converter import TemperatureConverter
 from src.enums.temperature_units_enum import TemperatureUnit
 
 
-
 class TemperatureConverterTest(unittest.TestCase):
     def test_convert_from_celcius(self):
         input = [[100, 120, 300],
@@ -36,7 +35,6 @@ class TemperatureConverterTest(unittest.TestCase):
     def _global_test(self, inputs, answers, func, precision):
         i = 0
         for unit in [TemperatureUnit.Celsius, TemperatureUnit.Kelvin, TemperatureUnit.Fahrenheit]:
-            print(answers[i])
             for j in range(len(answers[i])):
                 self.assertEqual(func(unit, inputs[i][j], precision), answers[i][j], f"Should be {answers[i][j]}.")
             i += 1
