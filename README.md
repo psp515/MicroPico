@@ -85,7 +85,7 @@ Element  | 'Lib' Code | Code Example | Example Connection Schemas
 :-: | :-: | :-: | :-: 
 Led | ✅   | ✅  | ❌
 RGB Led | ❌  | ❌ | ❌ 
-DHT11 | ❌  | ❌ | ❌ 
+DHT11 | 🚧  | 🚧 | ❌ 
 I2C LCD | ❌  | ❌ | ❌ 
 Keypad | ✅ | ✅ | ❌ 
 LCD | ❌  | ❌ | ❌ 
