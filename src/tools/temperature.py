@@ -12,4 +12,5 @@ class Temperature:
         self._temperature = temperature
         self._unit = unit
 
-    # TODO : some base functions
+    def __str__(self):
+        return f"{self._temperature}"

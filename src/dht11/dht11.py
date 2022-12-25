@@ -2,6 +2,9 @@ import utime
 from machine import Pin
 from micropython import const
 
+from src.exceptions.invalid_checksum import InvalidChecksum
+from src.tools.byte_reciver import BytesReciver
+from src.tools.bytes_validator import BytesValidator
 from src.tools.temperature import Temperature
 from src.tools.temperature_converter import TemperatureConverter
 from src.enums.temperature_units_enum import TemperatureUnit
@@ -68,13 +71,30 @@ class DHT11:
         """
         Reads temperature and humidity from sensor.
         """
+        self._initial_signal()
 
-        #TODO read time span ()
+        pin = self._pin
+        pin = pin.init(Pin.IN, Pin.PULL_UP)
+        byte_reciver = BytesReciver(pin)
+        
+        recived_bytes = byte_reciver.capture_bytes()
+
+        bytes_validator = BytesValidator()
+
+        if bytes_validator.validate_checksum(recived_bytes[0:4],recived_bytes[4]):
+            self._humidity = recived_bytes[0] + recived_bytes[1] / 10
+            self._temperature = recived_bytes[2] + recived_bytes[3] / 10
+            self._last_measure_success = utime.ticks_us()
+        else:
+            if self.throws_measure_exceptions:
+                raise InvalidChecksum(f"Invalid checksum. Bytes recofed {recived_bytes}.")
 
 
-        self._last_measure_success = utime.ticks_us()
 
     def _initial_signal(self):
-        pass
+        self._pin.init(Pin.OUT, Pin.PULL_DOWN)
+        self._pin.value(1)
+        utime.sleep_ms(50)
+        self._pin.value(0)
+        utime.sleep_ms(18)
 
-    def _capture_pulses(self):
