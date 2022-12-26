@@ -19,9 +19,6 @@ class TemperatureTest(unittest.TestCase):
         self.global_test(Temperature(300, TemperatureUnit.Kelvin), TemperatureUnit.Fahrenheit, 80.3)
         self.global_test(Temperature(20, TemperatureUnit.Fahrenheit), TemperatureUnit.Fahrenheit, 20)
 
-    def global_test(self,
-                    tmp: Temperature,
-                    new_unit: TemperatureUnit,
-                    ans: float):
+    def global_test(self, tmp: Temperature, new_unit: TemperatureUnit, ans: float):
         tmp.change_unit(new_unit, precision=1)
         self.assertEqual(tmp.temperature, ans, f"Should be {ans}.")

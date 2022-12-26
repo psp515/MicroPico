@@ -4,10 +4,10 @@ from utime import sleep
 
 sensor = DHT11(Pin(28))
 
-# drawbak it reads only integer value, while you are able to read one decimal place 
+# drawbak it reads only integer value, while you are able to read float 
 
 while True:
-    sleep(3)
+    sleep(2)
     sensor.measure()
     print("T", sensor.temperature())
     print("H", sensor.humidity())

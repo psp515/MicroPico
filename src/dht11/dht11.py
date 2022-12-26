@@ -85,7 +85,7 @@ class DHT11:
                 self._last_measure = utime.ticks_us()
 
     def _can_measure(self):
-        return abs(utime.ticks_us() - self._last_measure) < MIN_INTERVAL_US and (self._last_measure != -1)
+        return abs(utime.ticks_us() - self._last_measure) > MIN_INTERVAL_US or self._last_measure == -1
 
     def _initial_signal(self):
         """
