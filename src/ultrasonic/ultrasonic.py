@@ -1,25 +1,50 @@
 from machine import Pin
 import utime
-
 from src.enums.length_units_enum import LengthUnit
+from src.tools.distance import Distance
 
-# TODO : refactor like dht11
 
 class Ultrasonic:
     """
     Class for managing ultasonic distance sensor.
     """
+    precision: int
+    unit: LengthUnit
 
-    def __init__(self, trigger_pin, echo_pin):
+    def __init__(self,
+                 trigger_pin: int,
+                 echo_pin: int,
+                 unit: LengthUnit = LengthUnit.Centimeter,
+                 precision: int = 1):
         """
         Configures pins and sets trigger pin off.
 
         :param echo_pin:  Pin connected to echo pin in sensor.
         :param trigger_pin: Pin connected to trigger pin in sensor.
+        :param unit: Unit of distance value.
+        :param precision:
         """
         self._trigger = Pin(trigger_pin, Pin.OUT)
         self._trigger.low()
         self._echo = Pin(echo_pin, Pin.IN)
+        self.unit = unit
+        self.precision = precision
+
+    @property
+    def distance(self):
+        """
+        Returns measured distance in provided unit.
+
+        :return: Distance object.
+        """
+
+        duration = self.measure()
+        print(duration)
+        if duration == -1:
+            return Distance(-1, self.unit)
+
+        length = round(duration / self._duration_cast(self.unit), self.precision)
+        return Distance(length, self.unit)
 
     def measure(self):
         """
@@ -55,34 +80,17 @@ class Ultrasonic:
 
         return duration
 
-    def get_distance(self, unit=LengthUnit.Centimeter, precision=1):
-        """
-        Returns measured distance in provided unit.
-
-        :param unit: Unit of returned value.
-        :param precision: Precision of returned measurement.
-        :return: Returns measured distance or -1 if measurement was unsuccessful.
-        """
-
-        duration = self.measure()
-
-        if duration == -1:
-            return -1
-
-        return round(duration / self.ultrasonic_cast(unit), precision)
-
-    def ultrasonic_cast(self, lengthUnit):
+    def _duration_cast(self, unit: LengthUnit):
         """
         Converts unit to constant used in calculations for ultrasonic distance sensor.
 
-        :param lengthUnit: Unit class object.
+        :param unit: Unit class object.
         :return: Constant for ultrasonic sensor.
         """
-        if lengthUnit == 2:
+        if unit == LengthUnit.Centimeter:
             return 58
-        if lengthUnit == 3:
+        if unit == LengthUnit.Meter:
             return 5800
-        if lengthUnit == 4:
+        if unit == LengthUnit.Inch:
             return 148
         return 5.8
-
