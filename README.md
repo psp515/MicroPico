@@ -46,7 +46,7 @@ Also in futre I am planning to create few project based on knowledge gained here
   <a href="">
     <img src="https://img.shields.io/badge/Raspberry Pi Pico-Code?&logo=raspberrypi&logoColor=black&color=F1C232" />
   </a>
-  </br>
+  <br>
   <a href="">     
     <img src="https://img.shields.io/badge/Raspberry Pi Pico W-Code?&logo=raspberrypi&logoColor=black&color=F1C232" />
   </a>
@@ -85,7 +85,7 @@ Element  | 'Lib' Code | Code Example | Example Connection Schemas
 :-: | :-: | :-: | :-: 
 Led | ✅   | ✅  | ❌
 RGB Led | ❌  | ❌ | ❌ 
-DHT11 | ❌  | ❌ | ❌ 
+DHT11 | ✅  | ✅ | ❌ 
 I2C LCD | ❌  | ❌ | ❌ 
 Keypad | ✅ | ✅ | ❌ 
 LCD | ❌  | ❌ | ❌ 
