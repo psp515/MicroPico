@@ -1,8 +1,5 @@
-
-
-
 class InvalidPinException(Exception):
-    pass
-
-class InvalidKeyboardException(Exception):
+    """
+    Exception represents invalid pin was used.
+    """
     pass

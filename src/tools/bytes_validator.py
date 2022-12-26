@@ -1,6 +1,5 @@
 import array
 
-
 class BytesValidator:
     """
     Class task is to validate bytes.
@@ -10,7 +9,7 @@ class BytesValidator:
         Check bytes sum and returns if bytes are valid.
 
         :param bytes_to_check: Array of bytes to check.
-        :param crc_sum: Array of checksum bytes.
+        :param crc_sum: Array of crc bytes.
         :return: Is valid bytes.
         """
         bytes_sum = sum(bytes_to_check)

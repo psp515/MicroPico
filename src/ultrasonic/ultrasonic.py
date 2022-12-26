@@ -1,8 +1,7 @@
 from machine import Pin
 import utime
 
-from src.enums.length_units_enum import LengthUnit, ultrasonic_cast
-
+from src.enums.length_units_enum import LengthUnit
 
 # TODO : refactor like dht11
 
@@ -70,6 +69,20 @@ class Ultrasonic:
         if duration == -1:
             return -1
 
-        return round(duration / ultrasonic_cast(unit), precision)
+        return round(duration / self.ultrasonic_cast(unit), precision)
 
+    def ultrasonic_cast(self, lengthUnit):
+        """
+        Converts unit to constant used in calculations for ultrasonic distance sensor.
+
+        :param lengthUnit: Unit class object.
+        :return: Constant for ultrasonic sensor.
+        """
+        if lengthUnit == 2:
+            return 58
+        if lengthUnit == 3:
+            return 5800
+        if lengthUnit == 4:
+            return 148
+        return 5.8
 
