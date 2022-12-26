@@ -8,12 +8,8 @@ from micropico import LengthUnit
 us = Ultrasonic(13, 14)
 i = 1
 while True:
-    print("Measurement",i)
-    # each get is different measurement so distances will differ
-    print(us.get_distance(precision=2), "cm")
-    print(us.get_distance(LengthUnit.Meter, 3), "m")
-    print(us.get_distance(LengthUnit.Milimeter, 0), "mm")
-    print(us.get_distance(LengthUnit.Inch), "inch")
+    print("Measurement", i)
+    print(us.distance)
     print("-------------------")
-    sleep(10)
+    sleep(3)
     i+=1
