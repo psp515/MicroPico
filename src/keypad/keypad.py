@@ -1,7 +1,7 @@
 from machine import Pin
 import utime
 
-from src.exceptions.invalid_pin_exception import InvalidKeyboardException
+from src.exceptions.invalid_keyboard import InvalidKeyboardException
 
 
 class Keypad:

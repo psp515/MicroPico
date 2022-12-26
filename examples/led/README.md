@@ -12,15 +12,13 @@ Light-emitting diode (LED) uses electroluminescence, when excess energy is gener
 
 ### Examples
 
-Ex. 1
-<br/>
-Example shows how on, off and blink works.
-<br/>
-Ex. 2
-<br/>
-Example uses photorezistor. Reads value from photorezistor then changes led brigntness. 
-<br/>
+**Example 1**
 
+Example shows how on, off and blink works.
+
+**Example 2**
+
+Example uses photorezistor. Reads value from photorezistor then changes led brigntness.
 
 TODO SCHEMA 
 <br/>
