@@ -1,10 +1,9 @@
 from micropico import DHT11
 from utime import sleep
 
-sensor = DHT11(0)
+sensor = DHT11(28)
 
 while True:
-    print("T", sensor.temperature)
-    print("H", sensor.humidity)
-    print("-------------------")
-    sleep(5)
+    sleep(2)
+    print(f"Temperature: {sensor.temperature}")
+    print(f"Humidity: {sensor.humidity}")
