@@ -39,7 +39,7 @@ class Ultrasonic:
         """
 
         duration = self.measure()
-        print(duration)
+
         if duration == -1:
             return Distance(-1, self.unit)
 

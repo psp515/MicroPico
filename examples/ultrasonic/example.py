@@ -5,7 +5,7 @@ from micropico import LengthUnit
 # Be aware that ultrasonic may use 5V power
 # So check it in datasheet 
 
-us = Ultrasonic(13, 14)
+us = Ultrasonic(0, 1)
 i = 1
 while True:
     print("Measurement", i)

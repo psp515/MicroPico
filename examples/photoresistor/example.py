@@ -1,9 +1,9 @@
 from time import sleep
-from micropico import Photorezistor
+from micropico import Photoresistor
 
 # Remember to use 10k rezistor
 
-pr = Photorezistor(26)
+pr = Photoresistor(26)
 
 while True:
     print(f'light: {pr.percent_value(3)} %')
