@@ -86,16 +86,15 @@ Elements with added code examples and simple usage examples.
 
 Element  | 'Lib' Code | Code Example | Example Schema
 :-: | :-: | :-: | :-: 
-Led | ✅   | ✅  | ❌
-RGB Led | ❌  | ❌ | ❌ 
-DHT11 | ✅  | ✅ | ❌ 
-I2C LCD | ❌  | ❌ | ❌ 
-Keypad | ✅ | ✅ | ❌ 
-LCD | ❌  | ❌ | ❌ 
+Led | 🚧   | 🚧  | 🚧
+RGB Led | 🚧  | 🚧 | 🚧 
+DHT11 | ✅  | ✅ | 🚧 
+I2C LCD | ❌  | ❌ | 🚧
+Keypad | ✅ | ✅ | 🚧 
 PIR | ✅  | ✅ | ✅ 
-Potentiometer | ✅  | ✅ | ❌ 
-Photorezistor  | ✅  | ✅ | ❌ 
-Ultrasonic | ✅  | ✅ | ❌ 
+Potentiometer | ✅  | ✅ | 🚧 
+Photorezistor  | ✅  | ✅ | 🚧 
+Ultrasonic | ✅  | ✅ | 🚧 
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
