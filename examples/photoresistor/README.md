@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Photorezistor </h1>
-  <p> ... yea rezistant to photos.</p>
+  <p> ... yea resistant to photos.</p>
 </div>  
 <br/>
 
