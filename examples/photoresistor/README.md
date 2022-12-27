@@ -14,4 +14,5 @@ Photorezistor (LDR) is simple light senosr. It uses the photoelectric effect, so
 
 Example is simple it read's value from pin every second and displays it.
 
-TODO SCHEMA
+### Schema
+<img src="https://github.com/psp515/MicroPico/blob/LibFixes/images/photoresistor/photoresistor_schema.png" alt="schema" height=256/>
