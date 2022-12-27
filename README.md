@@ -89,7 +89,7 @@ Element  | 'Lib' Code | Code Example | Example Schema
 Led | 🚧   | 🚧  | 🚧
 RGB Led | 🚧  | 🚧 | 🚧 
 DHT11 | ✅  | ✅ | 🚧 
-I2C LCD | ❌  | ❌ | 🚧
+I2C LCD | ❌  | ❌ | ❌
 Keypad | ✅ | ✅ | 🚧 
 PIR | ✅  | ✅ | ✅ 
 Potentiometer | ✅  | ✅ | 🚧 
