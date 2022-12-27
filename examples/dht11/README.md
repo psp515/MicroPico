@@ -21,4 +21,5 @@ Example reads data and display it.
 Example reads data and display it with dht module from micropython.
 
 
-TODO SCHEMA
+### Schema
+<img src="https://github.com/psp515/MicroPico/blob/LibFixes/images/dht11/dht11_schema.png" alt="symbol" height=256/>
