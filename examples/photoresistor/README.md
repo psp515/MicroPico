@@ -8,7 +8,7 @@ Photorezistor (LDR) is simple light senosr. It uses the photoelectric effect, so
 
 ### Electric Symbol
 
-<img src="https://github.com/psp515/MicroPico/blob/Photorezistor/images/photorezistor/photorezistor_symbol.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/LibFixes/images/photoresistor/photorezistor_symbol.png" alt="symbol" height=256/>
 
 ### Example 
 
