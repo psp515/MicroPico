@@ -81,7 +81,7 @@ You may want to use this repository in order to see how easy is to create progra
 
 Elements with added code examples and simple usage examples.
 
-Element  | 'Lib' Code | Code Example | Example Connection Schemas
+Element  | 'Lib' Code | Code Example | Example Schema
 :-: | :-: | :-: | :-: 
 Led | ✅   | ✅  | ❌
 RGB Led | ❌  | ❌ | ❌ 
