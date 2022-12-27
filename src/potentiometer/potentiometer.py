@@ -1,6 +1,6 @@
-from src.interfaces.adc_sensor import ADCSensor
+from src.interfaces.analog_input_device import AnalogInputDevice
 
-class Potentiometer(ADCSensor):
+class Potentiometer(AnalogInputDevice):
     """
     Class for managing potentiometer.
     """

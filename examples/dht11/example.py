@@ -1,7 +1,7 @@
 from micropico import DHT11
 from utime import sleep
 
-sensor = DHT11(28)
+sensor = DHT11(0)
 
 while True:
     sleep(2)

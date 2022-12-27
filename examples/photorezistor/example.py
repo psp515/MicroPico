@@ -6,6 +6,6 @@ from micropico import Photorezistor
 pr = Photorezistor(26)
 
 while True:
-    print(f'light: {pr.read_percent(3)} %')
-    print(f'light: {pr.read()}')
+    print(f'light: {pr.percent_value(3)} %')
+    print(f'light: {pr.value()}')
     sleep(1)

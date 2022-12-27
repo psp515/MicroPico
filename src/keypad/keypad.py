@@ -1,3 +1,5 @@
+import array
+
 from machine import Pin
 import utime
 
@@ -8,8 +10,11 @@ class Keypad:
     """
     Class for managing simple keypad (4x4 5x4 etc.).
     """
+    _horizontal_pins: array
+    _vertical_pins: array
+    _keyboard: array
 
-    def __init__(self, horizontal_pins, vertical_pins, keyboard=None):
+    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard: array=None):
         """
         Function initializes keypad.
 
@@ -30,15 +35,18 @@ class Keypad:
         if len(horizontal_pins) != len(keyboard) or len(vertical_pins) != len(keyboard[0]):
             raise InvalidKeyboardException("Passed keyboard does not match pins.")
 
-
         self._init_horizontal_pins(horizontal_pins)
         self._init_vertical_pins(vertical_pins)
 
-        self.keyboard = keyboard
-        self.wait = False
+        self._keyboard = keyboard
+        self._last_read = utime.ticks_ms()
 
         self.horizontal_pins_count = len(horizontal_pins)
         self.vertical_pins_count = len(vertical_pins)
+
+    @property
+    def keyboard(self):
+        return self._keyboard
 
     def _init_horizontal_pins(self, pins):
         """
@@ -62,20 +70,21 @@ class Keypad:
 
     def read(self):
         """
-        If returns pressed key or "".
+        Returns pressed key or "". Also prevents from clicking keys too fast.
         """
 
-        if self.wait:
-            utime.sleep(0.3)
-            self.wait = False
+        diff = utime.ticks_diff(utime.ticks_ms(), self._last_read)
+
+        if diff < 300:
+            utime.sleep_ms(300 - diff)
 
         for row in range(len(self._horizontal_pins)):
             self._horizontal_pins[row].value(1)
             for col in range(len(self._vertical_pins)):
                 if self._vertical_pins[col].value() == 1:
                     self._horizontal_pins[row].value(0)
-                    self.wait = True
-                    return self.keyboard[row][col]
+                    self._last_read = utime.ticks_ms()
+                    return self._keyboard[row][col]
 
             self._horizontal_pins[row].value(0)
 
