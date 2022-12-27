@@ -43,9 +43,9 @@ class Temperature:
         """
         tc = TemperatureConverter()
 
-        if self._unit == TemperatureUnit.Celsius:
+        if self._unit == TemperatureUnit.CELSIUS:
             self._temperature = tc.convert_from_celsius(unit, self._temperature, precision)
-        elif self._unit == TemperatureUnit.Kelvin:
+        elif self._unit == TemperatureUnit.KELVIN:
             self._temperature = tc.convert_from_kelvin(unit, self._temperature, precision)
         else:
             self._temperature = tc.convert_from_fahrenheit(unit, self._temperature, precision)

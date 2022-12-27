@@ -14,7 +14,7 @@ class Ultrasonic:
     def __init__(self,
                  trigger_pin: int,
                  echo_pin: int,
-                 unit: LengthUnit = LengthUnit.Centimeter,
+                 unit: LengthUnit = LengthUnit.CENTIMETER,
                  precision: int = 1):
         """
         Configures pins and sets trigger pin off.
@@ -87,10 +87,10 @@ class Ultrasonic:
         :param unit: Unit class object.
         :return: Constant for ultrasonic sensor.
         """
-        if unit == LengthUnit.Centimeter:
+        if unit == LengthUnit.CENTIMETER:
             return 58
-        if unit == LengthUnit.Meter:
+        if unit == LengthUnit.METER:
             return 5800
-        if unit == LengthUnit.Inch:
+        if unit == LengthUnit.INCH:
             return 148
         return 5.8

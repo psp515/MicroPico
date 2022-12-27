@@ -34,7 +34,7 @@ class TemperatureConverterTest(unittest.TestCase):
 
     def _global_test(self, inputs, answers, func, precision):
         i = 0
-        for unit in [TemperatureUnit.Celsius, TemperatureUnit.Kelvin, TemperatureUnit.Fahrenheit]:
+        for unit in [TemperatureUnit.CELSIUS, TemperatureUnit.KELVIN, TemperatureUnit.FAHRENHEIT]:
             for j in range(len(answers[i])):
                 self.assertEqual(func(unit, inputs[i][j], precision), answers[i][j], f"Should be {answers[i][j]}.")
             i += 1

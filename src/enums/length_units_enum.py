@@ -3,18 +3,18 @@ class LengthUnit:
     """
     Enum representing length units.
     """
-    Milimeter = 1
-    Centimeter = 2
-    Meter = 3
-    Inch = 4
+    MILIMETER = 1
+    CENTIMETER = 2
+    METER = 3
+    INCH = 4
 
 
-def get_lengthunit_shortname(unit:LengthUnit):
-    if unit == LengthUnit.Milimeter:
+def get_lengthunit_shortname(unit: LengthUnit):
+    if unit == LengthUnit.MILIMETER:
         return "mm"
-    if unit == LengthUnit.Centimeter:
+    if unit == LengthUnit.CENTIMETER:
         return "cm"
-    if unit == LengthUnit.Meter:
+    if unit == LengthUnit.METER:
         return "m"
 
     return "in"

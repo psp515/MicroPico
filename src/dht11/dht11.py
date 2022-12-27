@@ -18,7 +18,7 @@ class DHT11:
 
     def __init__(self,
                  pin: int,
-                 unit: TemperatureUnit = TemperatureUnit.Celsius,
+                 unit: TemperatureUnit = TemperatureUnit.CELSIUS,
                  precision: int = 0):
         """
         Initializes sensor.
@@ -75,7 +75,7 @@ class DHT11:
                 received_bytes = receiver.capture_bytes()
                 if BytesValidator().validate_checksum(received_bytes[0:4], [received_bytes[4]]):
                     self._humidity = round(received_bytes[0] + received_bytes[1] / 10, 0)
-                    tmp = Temperature(received_bytes[2] + received_bytes[3] / 10, TemperatureUnit.Celsius)
+                    tmp = Temperature(received_bytes[2] + received_bytes[3] / 10, TemperatureUnit.CELSIUS)
                     tmp.change_unit(self.unit)
                     self._temperature = tmp
                     self._last_measure_success = utime.ticks_us()
