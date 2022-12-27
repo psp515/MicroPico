@@ -24,8 +24,8 @@ class Keypad:
                         ["7", "8", "9", "C"],
                         ["*", "0", "#", "D"]]
 
-        self.horizontal_pins = []
-        self.vertical_pins = []
+        self._horizontal_pins = []
+        self._vertical_pins = []
 
         if len(horizontal_pins) != len(keyboard) or len(vertical_pins) != len(keyboard[0]):
             raise InvalidKeyboardException("Passed keyboard does not match pins.")
@@ -48,7 +48,7 @@ class Keypad:
         """
 
         for pin in pins:
-            self.horizontal_pins.append(Pin(pin, Pin.OUT))
+            self._horizontal_pins.append(Pin(pin, Pin.OUT))
 
     def _init_vertical_pins(self, pins):
         """
@@ -58,7 +58,7 @@ class Keypad:
         """
 
         for pin in pins:
-            self.vertical_pins.append(Pin(pin, Pin.IN, Pin.PULL_DOWN))
+            self._vertical_pins.append(Pin(pin, Pin.IN, Pin.PULL_DOWN))
 
     def read(self):
         """
@@ -69,14 +69,14 @@ class Keypad:
             utime.sleep(0.3)
             self.wait = False
 
-        for row in range(len(self.horizontal_pins)):
-            self.horizontal_pins[row].value(1)
-            for col in range(len(self.vertical_pins)):
-                if self.vertical_pins[col].value() == 1:
-                    self.horizontal_pins[row].value(0)
+        for row in range(len(self._horizontal_pins)):
+            self._horizontal_pins[row].value(1)
+            for col in range(len(self._vertical_pins)):
+                if self._vertical_pins[col].value() == 1:
+                    self._horizontal_pins[row].value(0)
                     self.wait = True
                     return self.keyboard[row][col]
 
-            self.horizontal_pins[row].value(0)
+            self._horizontal_pins[row].value(0)
 
         return ""

@@ -17,7 +17,7 @@ class TemperatureConverter:
         :return: Converted value to valid unit or value otherwise.
         """
 
-        if temperature_unit == TemperatureUnit.Celsius:
+        if temperature_unit == TemperatureUnit.CELSIUS:
             return round(value, precision)
 
         return self._converter(temperature_unit, value, precision, [
@@ -37,7 +37,7 @@ class TemperatureConverter:
         :return: Converted value to valid unit or value otherwise.
         """
 
-        if temperature_unit == TemperatureUnit.Kelvin:
+        if temperature_unit == TemperatureUnit.KELVIN:
             return round(value, precision)
 
         return self._converter(temperature_unit, value, precision, [
@@ -55,7 +55,7 @@ class TemperatureConverter:
         :param precision: Returned value decimal places.
         :return: Converted value to valid unit or value otherwise.
         """
-        if temperature_unit == TemperatureUnit.Fahrenheit:
+        if temperature_unit == TemperatureUnit.FAHRENHEIT:
             return round(value, precision)
 
         return self._converter(temperature_unit, value, precision, [

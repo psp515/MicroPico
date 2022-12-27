@@ -62,6 +62,9 @@ Also in futre I am planning to create few project based on knowledge gained here
   <a>
     <img src="https://img.shields.io/badge/-Python-FFFFFF?logo=python" />
   </a>
+  <a>
+    <img src="https://img.shields.io/badge/-Fritzing-FFFFFF?logo=fritzing" />
+  </a>
 </div>
 
 ### Getting Started
