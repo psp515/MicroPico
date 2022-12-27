@@ -17,8 +17,7 @@ Example shows how 4x4 keyboard works.
 
 **Example 2**
 
-Example shows how 4(rows)x3(columns) keyboard works.
-
+Example shows how 4(rows)x3(columns) keyboard works. (same schema)
 
 
 ### Schema
