@@ -21,5 +21,5 @@ Example shows how 4(rows)x3(columns) keyboard works.
 
 
 
-TODO SCHEMA 
-<br/>
+### Schema
+<img src="https://github.com/psp515/MicroPico/blob/LibFixes/images/keypad/keypad_schema.png" alt="symbol" height=256/>
