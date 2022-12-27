@@ -3,16 +3,20 @@ from utime import sleep
 from micropico import PIR
 
 led = Pin(25, Pin.OUT)
-pir = PIR(0)
+pir = PIR(28)
 led.low()
 sleep(1)
+i = 0
 
 while True:
     if pir.movement:
-        print("LED On")
+        print(f"{i}. LED On")
         led.high()
-        sleep(1)
+        sleep(5)
+        i+=1
     else:
-        print("Waiting for movement")
+        print(f"{i}. Waiting for movement")
         led.low()
         sleep(1)
+        i+=1
+    

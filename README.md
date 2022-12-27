@@ -92,7 +92,7 @@ DHT11 | ✅  | ✅ | ❌
 I2C LCD | ❌  | ❌ | ❌ 
 Keypad | ✅ | ✅ | ❌ 
 LCD | ❌  | ❌ | ❌ 
-PIR | ❌  | ❌ | ❌ 
+PIR | ✅  | ✅ | ✅ 
 Potentiometer | ✅  | ✅ | ❌ 
 Photorezistor  | ✅  | ✅ | ❌ 
 Ultrasonic | ✅  | ✅ | ❌ 

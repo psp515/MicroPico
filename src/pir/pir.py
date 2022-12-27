@@ -21,6 +21,6 @@ class PIR(InputDevice):
         if value == 0:
             self._last_movement = ticks_us()
 
-        return not self._state_to_boolean(value)
+        return self._state_to_boolean(value)
 
 
