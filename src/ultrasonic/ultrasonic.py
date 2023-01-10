@@ -39,7 +39,7 @@ class Ultrasonic:
         """
 
         duration = self.measure()
-        print(duration)
+
         if duration == -1:
             return Distance(-1, self.unit)
 
@@ -50,7 +50,7 @@ class Ultrasonic:
         """
         Measures distance with sensor.
 
-        :return: Measurement duration or -1.
+        :return: Measurement duration, -1 (Invalid received information) or -2 (should be too big distance).
         """
         self._trigger.high()
         utime.sleep_us(10)
@@ -76,7 +76,7 @@ class Ultrasonic:
 
         if (duration > 38000):
             # read error
-            return -1
+            return -2
 
         return duration
 

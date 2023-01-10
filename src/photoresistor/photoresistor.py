@@ -1,7 +1,9 @@
 from src.interfaces.analog_input_device import AnalogInputDevice
 
-class Potentiometer(AnalogInputDevice):
+class Photoresistor(AnalogInputDevice):
     """
-    Class for managing potentiometer.
+    Class creates ADC object as photorezistor.
     """
     pass
+
+
