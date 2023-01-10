@@ -96,6 +96,7 @@ Potentiometer | ✅  | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ 
 Ultrasonic | ✅  | ✅ | ✅ 
 
+
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
 ### License
