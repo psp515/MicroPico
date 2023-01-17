@@ -15,3 +15,9 @@ sleep(1)
 led.on(255)
 sleep(1)
 led.off()
+
+for i in range(256):
+    led.on(i)
+
+sleep(1)
+led.off()
