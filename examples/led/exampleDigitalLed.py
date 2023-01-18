@@ -1,7 +1,7 @@
 from utime import sleep
 from micropico import DigitalLed
 
-led = DigitalLed(14)
+led = DigitalLed(0)
 print("Start")
 
 sleep(1)

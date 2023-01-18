@@ -5,6 +5,7 @@ import utime
 
 from src.exceptions.invalid_keyboard import InvalidKeyboardException
 
+#TODO : Implement Device Class
 
 class Keypad:
     """

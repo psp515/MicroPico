@@ -3,6 +3,7 @@ from machine import ADC, Pin
 from src.exceptions.invalid_pin_exception import InvalidPinException
 from src.const import ADC_PINS, MAX_ADC
 
+#TODO : Implement Device Class
 
 class AnalogInputDevice:
     """

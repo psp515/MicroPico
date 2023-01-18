@@ -9,6 +9,9 @@ from src.tools.temperature import Temperature
 from src.enums.temperature_units_enum import TemperatureUnit
 
 
+#TODO : Implement Device Class
+#TODO : Fix
+
 class DHT11:
     """
     Class for managing dht11 tempearture and humidity sensor.

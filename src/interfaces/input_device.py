@@ -1,5 +1,7 @@
 from machine import Pin
 
+#TODO : Implement Device Class
+
 class InputDevice:
     """
     Base class for input devices.

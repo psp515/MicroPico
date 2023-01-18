@@ -1,3 +1,4 @@
+
 class TemperatureUnit:
     """
     Temperature units enum.
