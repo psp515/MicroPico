@@ -6,12 +6,16 @@ from src.interfaces.input_device import InputDevice
 from src.tools.distance import Distance
 
 
+# TODO: Refactor
+
 class Ultrasonic(InputDevice):
     """
-    Class for managing ultasonic distance sensor.
+    Class for managing ultrasonic distance sensor.
     """
     precision: int
     unit: LengthUnit
+    _init_pin: []
+    _pin: []
 
     def __init__(self,
                  trigger_pin: int,
@@ -26,19 +30,29 @@ class Ultrasonic(InputDevice):
         :param unit: Unit of distance value.
         :param precision:
         """
-        self._init_trigger = Pin(trigger_pin, Pin.OUT)
+        self._init_pin = [Pin(trigger_pin, Pin.OUT), Pin(echo_pin, Pin.IN)]
         self._init_trigger.low()
-        self._init_echo = Pin(echo_pin, Pin.IN)
+
         self._trigger = trigger_pin
         self._echo = echo_pin
         self.unit = unit
         self.precision = precision
 
+    @property
+    def _init_trigger(self):
+        return self._init_pin[0]
+
+    @property
+    def _init_echo(self):
+        return self._init_pin[1]
+
+
+    @property
     def pin(self):
         """
         :return: Tuple(trigger, echo)
         """
-        return (self._trigger, self._echo)
+        return self._trigger, self._echo
 
     @property
     def distance(self):
