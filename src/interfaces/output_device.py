@@ -7,18 +7,9 @@ class OutputDevice(Device):
     Class represents led object with provided base functions.
     """
 
-    _init_pin: Pin
-
     def __init__(self, pin: int):
         super().__init__(pin)
         self._init_pin = Pin(pin, Pin.OUT)
-
-    @property
-    def initialized_pin(self):
-        """
-        :return: Pin object representing device.
-        """
-        return self._init_pin
 
     def on(self):
         """

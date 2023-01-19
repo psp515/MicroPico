@@ -1,10 +1,11 @@
 from machine import PWM, Pin
+from utime import sleep_us
 
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 
 #TODO : Finish Class
-
+# TODO Think of using inus for nicer animation
 class OutputPWMDevice(OutputDevice):
     """
     Base class for pwm output devices.
@@ -16,7 +17,7 @@ class OutputPWMDevice(OutputDevice):
 
     _init_pin: PWM
 
-    def __init__(self, pin:int, frequency=1000):
+    def __init__(self, pin: int, frequency=1000):
         self._pin = pin
         self._state = DeviceState.OFF
         self._init_pin = PWM(Pin(pin))

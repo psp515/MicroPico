@@ -8,10 +8,18 @@ class Device:
 
     _pin: int
     _state: DeviceState
+    _init_pin: Pin
 
     def __init__(self, pin: int):
         self._pin = pin
         self._state = DeviceState.OFF
+
+    @property
+    def initialized_pin(self):
+        """
+        :return: Pin object representing device.
+        """
+        return self._init_pin
 
     @property
     def state(self):
@@ -23,6 +31,6 @@ class Device:
     @property
     def pin(self):
         """
-        :return: Returns pin number.
+        :return: Returns device pin number.
         """
         return self._pin

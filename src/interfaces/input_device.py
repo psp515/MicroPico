@@ -1,19 +1,14 @@
 from machine import Pin
 
-#TODO : Implement Device Class
+from src.interfaces.device import Device
 
-class InputDevice:
+
+class InputDevice(Device):
     """
     Base class for input devices.
     """
-    _pin: Pin
+    _init_pin: Pin
 
     def __init__(self, pin, pull=Pin.PULL_UP):
-        self._pin = Pin(pin, Pin.IN, pull)
-
-    def _state_to_boolean(self, state: int):
-        """
-        :param state: Device value.
-        :return: State as boolean.
-        """
-        return bool(state)
+        super().__init__(pin)
+        self._init_pin = Pin(pin, Pin.IN, pull)

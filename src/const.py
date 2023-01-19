@@ -1,4 +1,6 @@
 
+PICO_PIN_VOLTAGE = 3.3
+
 MAX_ADC = 65535
 ADC_PINS = [26, 27, 28]
 

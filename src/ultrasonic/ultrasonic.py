@@ -1,10 +1,12 @@
 from machine import Pin
 import utime
 from src.enums.length_units_enum import LengthUnit
+from src.enums.state_enum import DeviceState
+from src.interfaces.input_device import InputDevice
 from src.tools.distance import Distance
 
 
-class Ultrasonic:
+class Ultrasonic(InputDevice):
     """
     Class for managing ultasonic distance sensor.
     """
@@ -24,11 +26,19 @@ class Ultrasonic:
         :param unit: Unit of distance value.
         :param precision:
         """
-        self._trigger = Pin(trigger_pin, Pin.OUT)
-        self._trigger.low()
-        self._echo = Pin(echo_pin, Pin.IN)
+        self._init_trigger = Pin(trigger_pin, Pin.OUT)
+        self._init_trigger.low()
+        self._init_echo = Pin(echo_pin, Pin.IN)
+        self._trigger = trigger_pin
+        self._echo = echo_pin
         self.unit = unit
         self.precision = precision
+
+    def pin(self):
+        """
+        :return: Tuple(trigger, echo)
+        """
+        return (self._trigger, self._echo)
 
     @property
     def distance(self):
@@ -38,10 +48,17 @@ class Ultrasonic:
         :return: Distance object.
         """
 
-        duration = self.measure()
+        if self._state is DeviceState.IN_ACTION:
+            return
 
-        if duration == -1:
-            return Distance(-1, self.unit)
+        self._state = DeviceState.IN_ACTION
+
+        duration = self._measure()
+
+        if duration <= 0:
+            return Distance(duration, self.unit)
+
+        self._state = DeviceState.ON
 
         length = round(duration / self._duration_cast(self.unit), self.precision)
         return Distance(length, self.unit)
@@ -52,13 +69,25 @@ class Ultrasonic:
 
         :return: Measurement duration, -1 (Invalid received information) or -2 (should be too big distance).
         """
-        self._trigger.high()
+        if self._state is DeviceState.IN_ACTION:
+            return
+
+        self._state = DeviceState.IN_ACTION
+
+        duration = self._measure()
+
+        self._state = DeviceState.ON
+
+        return duration
+
+    def _measure(self):
+        self._init_trigger.high()
         utime.sleep_us(10)
-        self._trigger.low()
+        self._init_trigger.low()
 
         primary = utime.ticks_us() + 10000
 
-        while self._echo.value() == 0 and utime.ticks_us() < primary:
+        while self._init_echo.value() == 0 and utime.ticks_us() < primary:
             pass
 
         start = utime.ticks_us()
@@ -69,7 +98,7 @@ class Ultrasonic:
 
         secondary = start + 40000
 
-        while self._echo.value() == 1 and utime.ticks_us() < secondary:
+        while self._init_echo.value() == 1 and utime.ticks_us() < secondary:
             pass
 
         duration = utime.ticks_us() - start
