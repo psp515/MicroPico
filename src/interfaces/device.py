@@ -22,15 +22,16 @@ class Device:
         return self._init_pin
 
     @property
+    def pin(self):
+        """
+        :return: Returns device pin number.
+        """
+        return self._pin
+
+    @property
     def state(self):
         """
         :return: Device state.
         """
         return self._state
 
-    @property
-    def pin(self):
-        """
-        :return: Returns device pin number.
-        """
-        return self._pin

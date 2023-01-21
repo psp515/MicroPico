@@ -1,12 +1,5 @@
-from src.keypad.keypad import Keypad
-from src.led.pwm_led import PWMLed
-from src.led.digital_led import DigitalLed
-from src.rgbled.rgb_led import RGBLed
 from src.photoresistor.photoresistor import Photoresistor
-from src.ultrasonic.ultrasonic import Ultrasonic
 from src.potentiometer.potentiometer import Potentiometer
-from src.dht11.dht11 import DHT11
-from src.pir.pir import PIR
 
 # Enums
 from src.enums.length_units_enum import LengthUnit

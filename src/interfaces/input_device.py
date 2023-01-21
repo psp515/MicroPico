@@ -1,5 +1,6 @@
 from machine import Pin
 
+from src.enums.state_enum import DeviceState
 from src.interfaces.device import Device
 
 
@@ -7,8 +8,14 @@ class InputDevice(Device):
     """
     Base class for input devices.
     """
-    _init_pin: Pin
 
-    def __init__(self, pin, pull=Pin.PULL_UP):
+    def __init__(self, pin: int, pull=Pin.PULL_UP):
         super().__init__(pin)
         self._init_pin = Pin(pin, Pin.IN, pull)
+        self._state = DeviceState.ON
+
+    def _read(self):
+        """
+        Internal method for reading value.
+        """
+        return self._init_pin.value()

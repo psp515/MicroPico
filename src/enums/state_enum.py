@@ -5,4 +5,4 @@ class DeviceState:
     """
     ON = 1
     OFF = 2
-    IN_ACTION = 3
+    BUSY = 3

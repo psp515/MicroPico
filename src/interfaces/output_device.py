@@ -13,10 +13,10 @@ class OutputDevice(Device):
 
     def on(self):
         """
-        Turns led on.
+        Turns device on.
         """
         internal_state = self._state
-        self._state = DeviceState.IN_ACTION
+        self._state = DeviceState.BUSY
 
         if internal_state is DeviceState.ON:
             self._state = DeviceState.ON
@@ -27,10 +27,10 @@ class OutputDevice(Device):
 
     def off(self):
         """
-        Turns led off.
+        Turns device off.
         """
         internal_state = self._state
-        self._state = DeviceState.IN_ACTION
+        self._state = DeviceState.BUSY
 
         if internal_state is DeviceState.OFF:
             self._state = DeviceState.OFF
