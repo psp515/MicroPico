@@ -17,6 +17,5 @@ while True:
     else:
         print(f"{i}. Waiting for movement")
         led.low()
-        sleep(1)
+        sleep(0.1)
         i+=1
-    
