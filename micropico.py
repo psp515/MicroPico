@@ -2,6 +2,7 @@ from src.photoresistor.photoresistor import Photoresistor
 from src.potentiometer.potentiometer import Potentiometer
 from src.pir.pir import PIR
 from src.ultrasonic.ultrasonic import Ultrasonic
+from src.keypad.keypad import Keypad
 
 # Enums
 from src.enums.length_units_enum import LengthUnit
