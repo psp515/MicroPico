@@ -7,7 +7,7 @@ from src.enums.state_enum import DeviceState
 from src.exceptions.invalid_keyboard import InvalidKeyboardException
 from src.interfaces.input_device import InputDevice
 
-#TODO
+
 class Keypad(InputDevice):
     """
     Class for managing simple keypad (4x4 5x4 etc.).
@@ -15,17 +15,15 @@ class Keypad(InputDevice):
     _horizontal_init_pins: array
     _vertical_init_pins: array
     _keyboard: array
-
     _pin: []
 
-    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard: array = None):
+    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard=None):
         """
         Function initializes keypad.
 
         :param horizontal_pins: Horizontal (rows) pin list. (lines starting from left/right)
         :param vertical_pins: Vertical (columns) pin list. (lines starting from down/top)
         :param keyboard: List of strings.
-        :param is_working: value can be read from
         """
         if keyboard is None:
             keyboard = [["1", "2", "3", "A"],
@@ -47,6 +45,8 @@ class Keypad(InputDevice):
 
         self._horizontal_pins = horizontal_pins
         self._vertical_pins = vertical_pins
+
+        self._state = DeviceState.ON
 
     @property
     def keyboard(self):
