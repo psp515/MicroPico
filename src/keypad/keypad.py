@@ -1,7 +1,8 @@
 import array
 
 from machine import Pin
-import utime
+
+from utime import ticks_ms, ticks_diff, sleep_ms
 
 from src.enums.state_enum import DeviceState
 from src.exceptions.invalid_keyboard import InvalidKeyboardException
@@ -16,15 +17,9 @@ class Keypad(InputDevice):
     _vertical_init_pins: array
     _keyboard: array
     _pin: []
+    _pressed_span: int
 
-    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard=None):
-        """
-        Function initializes keypad.
-
-        :param horizontal_pins: Horizontal (rows) pin list. (lines starting from left/right)
-        :param vertical_pins: Vertical (columns) pin list. (lines starting from down/top)
-        :param keyboard: List of strings.
-        """
+    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard=None, pressed_span_ms=250):
         if keyboard is None:
             keyboard = [["1", "2", "3", "A"],
                         ["4", "5", "6", "B"],
@@ -41,12 +36,33 @@ class Keypad(InputDevice):
         self._init_vertical_pins(vertical_pins)
 
         self._keyboard = keyboard
-        self._last_read = utime.ticks_ms()
+        self._last_read = ticks_ms()
 
         self._horizontal_pins = horizontal_pins
         self._vertical_pins = vertical_pins
 
         self._state = DeviceState.ON
+
+        self._pressed_span = pressed_span_ms
+
+    @property
+    def pressed_span(self):
+        """
+        Represents minimal time span between presses.
+        :return: Minimal time span between presses in ms.
+        """
+        return self._pressed_span
+
+    @pressed_span.setter
+    def pressed_span(self, span: int):
+        """
+        Represents minimal time span between presses.
+        :param span: Span in ms.
+        """
+        if span < 0:
+            return
+
+        self._pressed_span = span
 
     @property
     def keyboard(self):
@@ -105,17 +121,17 @@ class Keypad(InputDevice):
         return key
 
     def _read(self):
-        diff = utime.ticks_diff(utime.ticks_ms(), self._last_read)
+        diff = ticks_diff(ticks_ms(), self._last_read)
 
-        if diff < 300:
-            utime.sleep_ms(300 - diff)
+        if diff < self._pressed_span:
+            sleep_ms(self._pressed_span - diff)
 
         for row in range(len(self._horizontal_init_pins)):
             self._horizontal_init_pins[row].value(1)
             for col in range(len(self._vertical_init_pins)):
                 if self._vertical_init_pins[col].value() == 1:
                     self._horizontal_init_pins[row].value(0)
-                    self._last_read = utime.ticks_ms()
+                    self._last_read = ticks_ms()
                     return self._keyboard[row][col]
 
             self._horizontal_init_pins[row].value(0)
