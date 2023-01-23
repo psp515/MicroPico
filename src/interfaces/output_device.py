@@ -2,9 +2,10 @@ from src.enums.state_enum import DeviceState
 from src.interfaces.device import Device
 from machine import Pin
 
+
 class OutputDevice(Device):
     """
-    Class represents led object with provided base functions.
+    Class represents output device with provided base functions.
     """
 
     def __init__(self, pin: int):
