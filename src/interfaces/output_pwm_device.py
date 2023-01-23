@@ -1,22 +1,23 @@
 from machine import PWM, Pin
 from utime import sleep_us
 
+from src.const import MAX_ADC
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 
 #TODO
-class OutputPWMDevice(OutputDevice):
+class OutputDevicePWM(OutputDevice):
     """
     Base class for pwm output devices.
     """
 
-    step_constant = 257
+    step_constant: int = 257
     """ Step is solution of equations 255 * x = 256^2 - 1, it is used to calculate in duty 
     because on function takes value in range 0-255."""
 
     _init_pin: PWM
 
-    def __init__(self, pin: int, frequency=1000):
+    def __init__(self, pin: int, frequency: int = 1000):
         self._pin = pin
         self._init_pin = PWM(Pin(pin))
         self._init_pin.freq(frequency)
@@ -43,15 +44,15 @@ class OutputPWMDevice(OutputDevice):
 
         :param duty: Duty to be set on element.
         """
-        duty = max(min(self._on_duty(), duty), self._off_duty())
-        self._duty = duty
+        duty = self._validate_duty(duty)
         self._init_pin.duty_u16(duty)
 
-    def on(self, value=None, animate_time_ms=None):
+    def on(self, value: int = 255, animate: bool = False, animate_time_ms: int = None):
         """
         Turn on led with specified value from range 0-255 or turn's led on maximal duty.
         Could be used to animate value change.
 
+        :param animate:
         :param value:
         :param animate_time_ms: Total animation time
         """
@@ -118,9 +119,17 @@ class OutputPWMDevice(OutputDevice):
         """
         return int((total_time_ms * 1000) / intervals)
 
+    def _validate_duty(self, duty):
+        return max(min(self._on_duty(), duty), self._off_duty())
+
     def _off_duty(self):
         """
-        Method created in case of rgb led (anode / katode)
         :return: Returns duty value for led off state.
         """
         return 0
+
+    def _on_duty(self):
+        """
+        :return: Returns duty value for led off state.
+        """
+        return MAX_ADC

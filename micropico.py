@@ -29,4 +29,4 @@ from src.interfaces.device import Device
 from src.interfaces.input_device import InputDevice
 from src.interfaces.analog_input_device import AnalogInputDevice
 from src.interfaces.output_device import OutputDevice
-from src.interfaces.output_pwm_device import OutputPWMDevice
+from src.interfaces.output_pwm_device import OutputDevicePWM
