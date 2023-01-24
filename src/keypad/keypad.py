@@ -19,7 +19,11 @@ class Keypad(InputDevice):
     _pin: []
     _pressed_span: int
 
-    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard=None, pressed_span_ms=250):
+    # noinspection PyMissingConstructor
+    def __init__(self, horizontal_pins: array,
+                 vertical_pins: array,
+                 keyboard: array = None,
+                 pressed_span_ms: int = 250):
         if keyboard is None:
             keyboard = [["1", "2", "3", "A"],
                         ["4", "5", "6", "B"],
@@ -57,6 +61,7 @@ class Keypad(InputDevice):
     def pressed_span(self, span: int):
         """
         Represents minimal time span between presses.
+
         :param span: Span in ms.
         """
         if span < 0:
@@ -99,7 +104,7 @@ class Keypad(InputDevice):
         """
         Initialize vertical pins.
 
-        :param pins: Vertiacal pin list.
+        :param pins: Vertical pin list.
         """
 
         for pin in pins:

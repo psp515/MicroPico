@@ -59,6 +59,12 @@ class AnalogInputDevice(Device):
     def threshold(self, value):
         self._threshold = float(value)
 
+    def over_threshold(self):
+        """
+        :return: True if received value is bigger than threshold else false.
+        """
+        return self.value >= self.threshold
+
     def percent_value(self, precision=2):
         """
         Returns value on analog pin in percent.
@@ -111,3 +117,6 @@ class AnalogInputDevice(Device):
         value = self._init_pin.read_u16()
         return value if value >= self.threshold else 0
 
+    def __str__(self):
+        super(AnalogInputDevice, self).__str__() + \
+        f"Class: {self.__class__.__name__}\n"

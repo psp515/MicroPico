@@ -16,11 +16,7 @@ class OutputDevice(Device):
         """
         Turns device on.
         """
-        internal_state = self._state
-        self._state = DeviceState.BUSY
-
-        if internal_state is DeviceState.ON:
-            self._state = DeviceState.ON
+        if self._state is DeviceState.ON or self._state is DeviceState.BUSY:
             return
 
         self._init_pin.value(1)
@@ -30,12 +26,24 @@ class OutputDevice(Device):
         """
         Turns device off.
         """
-        internal_state = self._state
-        self._state = DeviceState.BUSY
-
-        if internal_state is DeviceState.OFF:
-            self._state = DeviceState.OFF
+        if self._state is DeviceState.OFF or self._state is DeviceState.BUSY:
             return
 
         self._init_pin.value(0)
         self._state = DeviceState.OFF
+
+    def toggle(self):
+        """
+        Toggles pin value.
+        """
+        if self._state is DeviceState.BUSY:
+            return
+
+        if self._state is DeviceState.ON:
+            self.off()
+        else:
+            self.on()
+
+    def __str__(self):
+        super(OutputDevice, self).__str__() + \
+        f"Class: {self.__class__.__name__}\n"

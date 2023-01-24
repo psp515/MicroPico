@@ -1,3 +1,4 @@
+from src.const import MINIMAL_EYE_BLINK_REACTION_TIME_MS
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 from utime import sleep_ms
@@ -7,7 +8,7 @@ class Led(OutputDevice):
     def __init__(self, pin: int):
         super().__init__(pin)
 
-    def blink(self, n=1, blink_ms=40):
+    def blink(self, n: int = 1, blink_ms: int = 40):
         """
         Blinks led. If led is on additional function finish time extends by 20ms.
         (Turing off LED before blinks, turning led on after blinks)
@@ -19,15 +20,14 @@ class Led(OutputDevice):
         if self._state is DeviceState.BUSY:
             return
 
-        if blink_ms < 20:
-            blink_ms = 20
+        blink_ms = max(MINIMAL_EYE_BLINK_REACTION_TIME_MS, blink_ms)
 
         internal_state = self._state
         self._state = DeviceState.BUSY
 
         if internal_state is DeviceState.ON:
             self._init_pin.value(0)
-            sleep_ms(20)
+            sleep_ms(MINIMAL_EYE_BLINK_REACTION_TIME_MS)
 
         span = int(blink_ms / 2)
 

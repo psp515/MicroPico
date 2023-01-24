@@ -14,6 +14,6 @@ led.off()
 
 while True:
     duty = pr.value()
-    led.on(int(duty / led.step_constant))
+    led.on(int(duty / led._step_constant))
     print(duty)
     sleep(1)
