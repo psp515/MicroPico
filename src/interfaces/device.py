@@ -37,7 +37,7 @@ class Device:
         return self._state
 
     def __str__(self):
-        return f"Pin: {self._pin},\n" \
-               f"State: {self._state},\n" \
-               f"Device type: {self._init_pin.__class__.__name__}\n" \
-               f"Class: {self.__class__.__name__}\n"
+        return f"Pin: {self._pin},\n" + \
+               f"State: {self._state},\n" + \
+               f"Device type: {self._init_pin.__class__.__name__}\n" + \
+               f"Class: {Device.__class__.__name__}\n"

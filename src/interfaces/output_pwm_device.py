@@ -1,7 +1,5 @@
 from machine import PWM, Pin
-from utime import sleep_us
-
-from src.const import MAX_ADC
+from src.const import MAX_PWM_DUTY
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 
@@ -10,11 +8,6 @@ class OutputDevicePWM(OutputDevice):
     """
     Base class for pwm output devices.
     """
-
-    _step_constant: int = 257
-    """ Step is solution of equations 255 * x = 256^2 - 1, it is used to calculate in duty 
-    because on function takes value in range 0-255."""
-
     _init_pin: PWM
 
     def __init__(self, pin: int, frequency: int = 1000):
@@ -23,6 +16,7 @@ class OutputDevicePWM(OutputDevice):
         self._init_pin.freq(frequency)
         self._init_pin.duty_u16(0)
         self._state = DeviceState.OFF
+        self._prev = -1
 
     @property
     def duty(self):
@@ -36,8 +30,6 @@ class OutputDevicePWM(OutputDevice):
     @duty.setter
     def duty(self, duty):
         """
-        Sets device duty directly.
-
         :param duty: Duty to be set on element.
         """
         duty = self._validate_duty(duty)
@@ -62,40 +54,39 @@ class OutputDevicePWM(OutputDevice):
 
         self._init_pin.freq(freq)
 
-    def on(self, value: int = 255, animate: bool = True, animate_time_ms: int = 100):
+    def on(self, value: int = None, animate_time_ms: int = 200):
         """
         Turn on device with specified value from range 0-255 or turn's led on maximal duty.
         Could be used to animate value change.
 
-        :param animate: Terminates is brightness is changed instantly.
         :param value: Value to set to device in range 0-255.
         :param animate_time_ms: Total animation time.
         """
 
+        if value is None:
+            value = self._on_duty()
+
         if self._state is DeviceState.BUSY:
+            self._state = DeviceState.ON
             return
 
         self._state = DeviceState.BUSY
 
         duty = self._calc_duty(value)
 
-        if self._init_pin.duty_u16() == duty:
+        if self._prev == duty:
             return
 
-        if not animate:
-            # Quick change
-            self._init_pin.duty_u16(duty)
-        else:
-            # Slow Change
-            self._gently(duty, animate_time_ms)
+        self._prev = duty
+
+        self._gently(duty, animate_time_ms)
 
         self._state = DeviceState.ON
 
-    def off(self, animate: bool = True, animate_time_ms: int = 100):
+    def off(self, animate_time_ms: int = 200):
         """
         Turns device off.
 
-        :param animate: Terminates is brightness is changed instantly.
         :param animate_time_ms: Total animation time.
         """
         if self._state is DeviceState.BUSY or self._state is DeviceState.OFF:
@@ -105,20 +96,16 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._off_duty()
 
-        if not animate:
-            # Quick change
-            self._init_pin.duty_u16(duty)
-        else:
-            # Slow Change
-            self._gently(duty, animate_time_ms)
+        self._prev = duty
 
-        self._state = DeviceState.ON
+        self._gently(duty, animate_time_ms)
 
-    def toggle(self, animate: bool = True, value: int = 255, animate_time_ms: int = 100):
+        self._state = DeviceState.OFF
+
+    def toggle(self, value: int = 255, animate_time_ms: int = 200):
         """
         Toggles device state.
 
-        :param animate: Terminates is brightness is changed instantly.
         :param value: Value to set to device in range 0-255.
         :param animate_time_ms: Total animation time.
         """
@@ -126,9 +113,9 @@ class OutputDevicePWM(OutputDevice):
             return
 
         if self._state is DeviceState.OFF:
-            self.on(value, animate, animate_time_ms)
+            self.on(value, animate_time_ms)
         else:
-            self.off(animate, animate_time_ms)
+            self.off(animate_time_ms)
 
     def _gently(self, duty: int, animate_time_ms: int):
         """
@@ -137,27 +124,43 @@ class OutputDevicePWM(OutputDevice):
         :param duty: Duty to be set after change.
         :param animate_time_ms: Total animation time.
         """
-        # value cannot equal 0 because _duty check
-        intervals = int(abs(self._init_pin.duty_u16() - duty) / self._step_constant)
 
-        timespan_us = max(int((animate_time_ms * 1000) / intervals), 100)
+        steps = self._f(animate_time_ms)
 
-        # 255*257 = 256^2 - 1 so 257 is step
-        step = self._get_step(duty)
+        if duty > self._init_pin.duty_u16():
+            for i in range(self._g(self._init_pin.duty_u16(), steps),
+                           self._g(duty, steps) + 1):
+                self._init_pin.duty_u16(int(MAX_PWM_DUTY * i / steps))
+        else:
+            for i in range(self._g(self._init_pin.duty_u16(), steps),
+                           self._g(duty, steps) - 1, -1):
+                self._init_pin.duty_u16(int(MAX_PWM_DUTY * (i / steps)))
 
-        for i in range(intervals):
-            tmp_duty = self._init_pin.duty_u16() + step
-            self._init_pin.duty_u16(tmp_duty)
-            sleep_us(timespan_us)
+    def _g(self, duty, steps):
+        """
+        Function calculates actual step.
+        :param duty: Actual duty.
+        :param steps: Total steps.
+        :return: Actual step.
+        """
+        return int(duty * steps / MAX_PWM_DUTY)
+
+    def _f(self, time):
+        """
+        Method created for converting animation time to number of
+        :param time: Operation time length.
+        :return: Number of steps.
+        """
+        return int(time * 11.9971 + 10.0264)
 
     def _calc_duty(self, value):
         """
-        Calculates duty from value.
+        Calculates duty from value. Created for implementing step.
 
-        :param value: Value from range (0-255)
+        :param value: Duty value.
         :return: PWM duty.
         """
-        return self._validate_duty(value * self._step_constant)
+        return value
 
     def _validate_duty(self, duty):
         """
@@ -178,16 +181,7 @@ class OutputDevicePWM(OutputDevice):
         """
         :return: Returns duty value for led off state.
         """
-        return MAX_ADC
-
-    def _get_step(self, duty):
-        """
-        Function returns step -_step_constant if duty is decreasing or _step_constant if duty is increasing.
-
-        :param duty: Duty to be set.
-        :return: Valid step.
-        """
-        return self._step_constant if duty > self._init_pin.duty_u16() else - self._step_constant
+        return MAX_PWM_DUTY
 
     def __str__(self):
         super(OutputDevicePWM, self).__str__() + \
