@@ -44,6 +44,3 @@ class LedPWM(OutputDevicePWM):
             self._gently(old, MINIMAL_EYE_BLINK_REACTION_TIME_MS)
 
         self._state = internal_state
-
-    def animate(self):
-        pass
