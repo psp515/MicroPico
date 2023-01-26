@@ -1,6 +1,7 @@
 from src.photoresistor.photoresistor import Photoresistor
 from src.potentiometer.potentiometer import Potentiometer
 from src.pir.pir import PIR
+from src.ir.ir import IR
 from src.ultrasonic.ultrasonic import Ultrasonic
 from src.keypad.keypad import Keypad
 from src.button.button import Button

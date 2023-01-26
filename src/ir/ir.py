@@ -1,13 +1,15 @@
-from time import ticks_us
+from utime import ticks_us
 
 from src.enums.state_enum import DeviceState
 from src.interfaces.input_device import InputDevice
 
 
-class PIR(InputDevice):
+class IR(InputDevice):
     """
-    Class represents PIR motion sensor.
-    """
+        Class represents IR motion sensor.
+        (For line break sensors)
+        """
+
     def __init__(self, pin):
         super().__init__(pin)
         self._last_movement = -1
@@ -23,7 +25,7 @@ class PIR(InputDevice):
 
         self._state = DeviceState.BUSY
 
-        moved = bool(self._read())
+        moved = bool((self._read() + 1) % 2)
 
         if moved == 0:
             self._last_movement = ticks_us()
@@ -31,5 +33,3 @@ class PIR(InputDevice):
         self._state = DeviceState.ON
 
         return moved
-
-
