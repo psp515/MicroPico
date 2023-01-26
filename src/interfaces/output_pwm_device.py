@@ -54,21 +54,20 @@ class OutputDevicePWM(OutputDevice):
 
         self._init_pin.freq(freq)
 
-    def on(self, value: int = None, animate_time_ms: int = 200):
+    def on(self, value: int = None, animate_ms: int = 200):
         """
-        Turn on device with specified value from range 0-255 or turn's led on maximal duty.
+        Turn on device with specified value from range 0-65535 or turn's led on maximal duty.
         Could be used to animate value change.
 
-        :param value: Value to set to device in range 0-255.
-        :param animate_time_ms: Total animation time.
+        :param value: Value to set to device in range 0-65535.
+        :param animate_ms: Approx. total animation time.
         """
+
+        if self._state is DeviceState.BUSY:
+            return
 
         if value is None:
             value = self._on_duty()
-
-        if self._state is DeviceState.BUSY:
-            self._state = DeviceState.ON
-            return
 
         self._state = DeviceState.BUSY
 
@@ -79,15 +78,15 @@ class OutputDevicePWM(OutputDevice):
 
         self._prev = duty
 
-        self._gently(duty, animate_time_ms)
+        self._gently(duty, animate_ms)
 
         self._state = DeviceState.ON
 
-    def off(self, animate_time_ms: int = 200):
+    def off(self, animate_ms: int = 200):
         """
         Turns device off.
 
-        :param animate_time_ms: Total animation time.
+        :param animate_ms: Approx. total animation time.
         """
         if self._state is DeviceState.BUSY or self._state is DeviceState.OFF:
             return
@@ -98,34 +97,34 @@ class OutputDevicePWM(OutputDevice):
 
         self._prev = duty
 
-        self._gently(duty, animate_time_ms)
+        self._gently(duty, animate_ms)
 
         self._state = DeviceState.OFF
 
-    def toggle(self, value: int = 255, animate_time_ms: int = 200):
+    def toggle(self, value: int = 255, animate_ms: int = 200):
         """
         Toggles device state.
 
-        :param value: Value to set to device in range 0-255.
-        :param animate_time_ms: Total animation time.
+        :param value: Value to set to device in range 0-65535.
+        :param animate_ms: Approx. total animation time.
         """
         if self._state is DeviceState.BUSY:
             return
 
         if self._state is DeviceState.OFF:
-            self.on(value, animate_time_ms)
+            self.on(value, animate_ms)
         else:
-            self.off(animate_time_ms)
+            self.off(animate_ms)
 
-    def _gently(self, duty: int, animate_time_ms: int):
+    def _gently(self, duty: int, animate_ms: int):
         """
         Method animates duty change for led.
 
         :param duty: Duty to be set after change.
-        :param animate_time_ms: Total animation time.
+        :param animate_ms: Approx. total animation time.
         """
 
-        steps = self._f(animate_time_ms)
+        steps = self._f(animate_ms)
 
         if duty > self._init_pin.duty_u16():
             for i in range(self._g(self._init_pin.duty_u16(), steps),

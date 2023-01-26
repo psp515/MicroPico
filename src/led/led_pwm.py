@@ -32,7 +32,7 @@ class LedPWM(OutputDevicePWM):
         blink_ms = max(MINIMAL_EYE_BLINK_REACTION_TIME_MS, blink_ms)
 
         if internal_state is DeviceState.ON:
-            self.off(animate_time_ms=MINIMAL_EYE_BLINK_REACTION_TIME_MS)
+            self.off(animate_ms=MINIMAL_EYE_BLINK_REACTION_TIME_MS)
 
         span = int(blink_ms / 2)
 
