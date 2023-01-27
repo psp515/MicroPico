@@ -1,4 +1,4 @@
-from src.const import MINIMAL_EYE_BLINK_REACTION_TIME_MS
+from src.const import BLINK_SPAN_MS
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 from utime import sleep_ms
@@ -20,14 +20,14 @@ class Led(OutputDevice):
         if self._state is DeviceState.BUSY:
             return
 
-        blink_ms = max(MINIMAL_EYE_BLINK_REACTION_TIME_MS, blink_ms)
+        blink_ms = max(BLINK_SPAN_MS, blink_ms)
 
         internal_state = self._state
         self._state = DeviceState.BUSY
 
         if internal_state is DeviceState.ON:
             self._init_pin.value(0)
-            sleep_ms(MINIMAL_EYE_BLINK_REACTION_TIME_MS)
+            sleep_ms(BLINK_SPAN_MS)
 
         span = int(blink_ms / 2)
 

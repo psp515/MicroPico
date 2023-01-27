@@ -1,4 +1,4 @@
-from src.const import MAX_PWM_DUTY
+from src.const import MAX_PWM_DUTY, BLINK_SPAN_MS
 from src.enums.reg_led_type import LedRGBType
 from src.enums.state_enum import DeviceState
 from micropico import LedPWM
@@ -18,6 +18,8 @@ class LedRGB(OutputDevice):
         self._init_pin[2].freq(frequency)
         self._led_type = led_type
         self._state = DeviceState.OFF
+
+
         #TODO: pwm warnings
 
     @property
@@ -27,9 +29,44 @@ class LedRGB(OutputDevice):
         """
         return self._led_type
 
-    def blink(self, r: int, g: int, b: int, blink_ms=600):
-        # TODO
-        pass
+    def blink(self, r: int, g: int, b: int, n: int = 1, blink_ms:int = 600):
+        """
+        Blinks led. If led is on additional function finish time extends by BLINK_SPAN_MS.
+        (Turing off LED before blinks, turning led on after blinks)
+
+        :param g: Value to set on green led in range 0-65535.
+        :param b: Value to set on blue led in range 0-65535.
+        :param r: Value to set on red led in range 0-65535.
+        :param n: Number of blinks.
+        :param blink_ms: Single blink time.
+        """
+        if self._state is DeviceState.BUSY:
+            return
+
+        internal_state = self._state
+        self._state = DeviceState.BUSY
+
+        old_r = self._init_pin[0].duty
+        old_g = self._init_pin[1].duty
+        old_b = self._init_pin[2].duty
+
+        animate_avg = int(max(BLINK_SPAN_MS, blink_ms) / 3)
+
+        if internal_state is DeviceState.ON:
+            for led in self._init_pin:
+                led.value(self._off_duty(), BLINK_SPAN_MS)
+
+        for _ in range(n):
+            for led in self._init_pin:
+                led.value(self._off_duty(), BLINK_SPAN_MS)
+            for led, value in zip(self._init_pin, [old_r, old_g, old_b]):
+                led.value(value, animate_avg)
+
+        if internal_state is DeviceState.ON:
+            for led, value in zip(self._init_pin, [old_r, old_g, old_b]):
+                led.value(value, animate_avg)
+
+        self._state = internal_state
 
     def on(self, animate_ms=600):
         """
@@ -102,6 +139,20 @@ class LedRGB(OutputDevice):
             led.value(value, animate_avg)
 
         self._state = DeviceState.ON
+
+    @property
+    def pin(self):
+        """
+        :return: List of pin numbers in order [r, g, b].
+        """
+        return self._pin
+
+    @property
+    def initialized_pin(self):
+        """
+        :return: List of LedPWM in order [init_r, init_g, init_b].
+        """
+        return self._init_pin
 
     def _off_duty(self):
         """

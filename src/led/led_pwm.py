@@ -1,6 +1,6 @@
 from utime import sleep_ms
 
-from src.const import MINIMAL_EYE_BLINK_REACTION_TIME_MS
+from src.const import BLINK_SPAN_MS
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_pwm_device import OutputDevicePWM
 
@@ -19,20 +19,20 @@ class LedPWM(OutputDevicePWM):
         :param blink_ms: Single blink time.
         """
 
-        if duty is None:
-            duty = self._on_duty()
-
         if self._state is DeviceState.BUSY:
             return
+
+        if duty is None:
+            duty = self._on_duty()
 
         internal_state = self._state
         old = self.duty
         self._state = DeviceState.BUSY
 
-        blink_ms = max(MINIMAL_EYE_BLINK_REACTION_TIME_MS, blink_ms)
+        blink_ms = max(BLINK_SPAN_MS, blink_ms)
 
         if internal_state is DeviceState.ON:
-            self.off(animate_ms=MINIMAL_EYE_BLINK_REACTION_TIME_MS)
+            self.off(animate_ms=BLINK_SPAN_MS)
 
         span = int(blink_ms / 2)
 
@@ -41,6 +41,6 @@ class LedPWM(OutputDevicePWM):
             self._gently(self._init_pin.duty_u16, self._off_duty(), span)
 
         if internal_state is DeviceState.ON:
-            self._gently(self._init_pin.duty_u16, old, MINIMAL_EYE_BLINK_REACTION_TIME_MS)
+            self._gently(self._init_pin.duty_u16, old, BLINK_SPAN_MS)
 
         self._state = internal_state
