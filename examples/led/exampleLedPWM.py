@@ -9,6 +9,6 @@ pr = Photoresistor(26)
 prev = -1
 while True:
     duty = pr.value
-    led.on(duty, 2000)
+    led.value(duty, 2000)
     print(duty, led.duty)
     sleep(1)

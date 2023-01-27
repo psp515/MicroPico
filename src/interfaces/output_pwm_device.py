@@ -1,5 +1,5 @@
 from machine import PWM, Pin
-from src.const import MAX_PWM_DUTY
+from src.const import MAX_PWM_DUTY, MIN_FREQ, MAX_FREQ
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 
@@ -16,7 +16,6 @@ class OutputDevicePWM(OutputDevice):
         self._init_pin.freq(frequency)
         self._init_pin.duty_u16(0)
         self._state = DeviceState.OFF
-        self._prev = -1
 
     @property
     def duty(self):
@@ -49,12 +48,12 @@ class OutputDevicePWM(OutputDevice):
 
         :param freq: New device frequency.
         """
-        if freq < 1:
+        if freq < MIN_FREQ or freq > MAX_FREQ:
             return
 
-        self._init_pin.freq(freq)
+        self._init_pin.freq=freq
 
-    def on(self, value: int = None, animate_ms: int = 200):
+    def value(self, value: int = None, animate_ms: int = 200):
         """
         Turn on device with specified value from range 0-65535 or turn's led on maximal duty.
         Could be used to animate value change.
@@ -66,19 +65,37 @@ class OutputDevicePWM(OutputDevice):
         if self._state is DeviceState.BUSY:
             return
 
+        self._state = DeviceState.BUSY
+
         if value is None:
             value = self._on_duty()
 
-        self._state = DeviceState.BUSY
-
         duty = self._calc_duty(value)
 
-        if self._prev == duty:
+        if self.duty == duty:
+            self._state = DeviceState.ON
             return
 
-        self._prev = duty
+        self._gently(self._init_pin.duty_u16, duty, animate_ms)
 
-        self._gently(duty, animate_ms)
+        self._state = DeviceState.ON
+
+    def on(self, animate_ms: int = 200):
+        """
+        Turn on device with maximal duty.
+        Could be used to animate value change.
+
+        :param animate_ms: Approx. total animation time.
+        """
+
+        if self._state is DeviceState.BUSY:
+            return
+
+        self._state = DeviceState.BUSY
+
+        duty = self._on_duty()
+
+        self._gently(self._init_pin.duty_u16, duty, animate_ms)
 
         self._state = DeviceState.ON
 
@@ -95,13 +112,11 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._off_duty()
 
-        self._prev = duty
-
-        self._gently(duty, animate_ms)
+        self._gently(self._init_pin.duty_u16, duty, animate_ms)
 
         self._state = DeviceState.OFF
 
-    def toggle(self, value: int = 255, animate_ms: int = 200):
+    def toggle(self, animate_ms: int = 200):
         """
         Toggles device state.
 
@@ -112,14 +127,15 @@ class OutputDevicePWM(OutputDevice):
             return
 
         if self._state is DeviceState.OFF:
-            self.on(value, animate_ms)
+            self.value(animate_ms=animate_ms)
         else:
             self.off(animate_ms)
 
-    def _gently(self, duty: int, animate_ms: int):
+    def _gently(self, led_duty_func, duty: int, animate_ms: int):
         """
         Method animates duty change for led.
 
+        :param led_duty_func: Function, setting object duty.
         :param duty: Duty to be set after change.
         :param animate_ms: Approx. total animation time.
         """
@@ -129,11 +145,11 @@ class OutputDevicePWM(OutputDevice):
         if duty > self._init_pin.duty_u16():
             for i in range(self._g(self._init_pin.duty_u16(), steps),
                            self._g(duty, steps) + 1):
-                self._init_pin.duty_u16(int(MAX_PWM_DUTY * i / steps))
+                led_duty_func(int(MAX_PWM_DUTY * i / steps))
         else:
             for i in range(self._g(self._init_pin.duty_u16(), steps),
                            self._g(duty, steps) - 1, -1):
-                self._init_pin.duty_u16(int(MAX_PWM_DUTY * (i / steps)))
+                led_duty_func(int(MAX_PWM_DUTY * (i / steps)))
 
     def _g(self, duty, steps):
         """
@@ -154,7 +170,7 @@ class OutputDevicePWM(OutputDevice):
 
     def _calc_duty(self, value):
         """
-        Calculates duty from value. Created for implementing step.
+        Calculates duty from value. Created for implementing other value ranges.
 
         :param value: Duty value.
         :return: PWM duty.
