@@ -38,7 +38,7 @@ Also in futre I am planning to create few project based on knowledge gained here
 - [ ] Keyboard
 - [ ] Weather Station
 - [ ] Drone 
-- [ ] LedStrip With ApplicationToManage 
+- [ ] Led Strip Driver 
 
 <br/>
 
