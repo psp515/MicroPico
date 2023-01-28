@@ -19,4 +19,4 @@ Example displays data in terminal when movement occured and then turns on led.
 (Made for IR sensor and PIR sensor)
 
 ### Schema
-<img src="https://github.com/psp515/MicroPico/blob/PIR/images/pir/pir_schema.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/pir/pir_schema.png" alt="symbol" height=256/>
