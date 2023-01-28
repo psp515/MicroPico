@@ -8,7 +8,7 @@ Button  is a simple switch mechanism to control some aspect of a machine.
 
 ### Electric Symbol
 
-<img src="https://github.com/psp515/MicroPico/blob/main/images/button/button.png" alt="symbol" height=128/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/button/button.png" alt="symbol" height=64/>
 
 ### Examples
 
