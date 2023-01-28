@@ -1,6 +1,6 @@
 <div align="center">
-  <h1> PIR </h1>
-  <p> Turn the light on. </p>
+  <h1> PIR / IR </h1>
+  <p> Light went off... (waves hands) ...Light on.</p>
 </div>  
 <br/>
 
@@ -12,7 +12,6 @@ Thanks to that we are able to detect movement.
 Not found.
 
 ### Examples
-
 
 Example involves using built-in led and PIR sensor.
 Example displays data in terminal when movement occured and then turns on led.
