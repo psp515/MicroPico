@@ -67,16 +67,9 @@ class OutputDevicePWM(OutputDevice):
 
         self._state = DeviceState.BUSY
 
-        if value is None:
-            value = self._on_duty()
-
         duty = self._calc_duty(value)
 
-        if self.duty == duty:
-            self._state = DeviceState.ON
-            return
-
-        self._gently(self._init_pin.duty_u16, duty, animate_ms)
+        self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, animate_ms)
 
         self._state = DeviceState.ON
 
@@ -95,7 +88,7 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._on_duty()
 
-        self._gently(self._init_pin.duty_u16, duty, animate_ms)
+        self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, animate_ms)
 
         self._state = DeviceState.ON
 
@@ -112,7 +105,7 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._off_duty()
 
-        self._gently(self._init_pin.duty_u16, duty, animate_ms)
+        self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, animate_ms)
 
         self._state = DeviceState.OFF
 
@@ -131,25 +124,26 @@ class OutputDevicePWM(OutputDevice):
         else:
             self.off(animate_ms)
 
-    def _gently(self, led_duty_func, duty: int, animate_ms: int):
+    def _gently(self, led_duty_func, led_duty: int, duty: int, animate_ms: int):
         """
-        Method animates duty change for led.
+        Method animates duty change for pwm device.
 
         :param led_duty_func: Function, setting object duty.
+        :param led_duty: Device duty.
         :param duty: Duty to be set after change.
         :param animate_ms: Approx. total animation time.
         """
 
-        steps = self._f(animate_ms)
+        if led_duty == duty:
+            return
 
-        if duty > self._init_pin.duty_u16():
-            for i in range(self._g(self._init_pin.duty_u16(), steps),
-                           self._g(duty, steps) + 1):
-                led_duty_func(int(MAX_PWM_DUTY * i / steps))
-        else:
-            for i in range(self._g(self._init_pin.duty_u16(), steps),
-                           self._g(duty, steps) - 1, -1):
-                led_duty_func(int(MAX_PWM_DUTY * (i / steps)))
+        steps = self._f(animate_ms)
+        step_direction = 1 if duty > led_duty else -1
+        start = self._g(led_duty, steps)
+        end = self._g(duty, steps) + (1 if duty > led_duty else -1)
+
+        for i in range(start, end, step_direction):
+            led_duty_func(int(MAX_PWM_DUTY * i / steps))
 
     def _g(self, duty, steps):
         """

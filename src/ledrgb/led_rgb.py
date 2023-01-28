@@ -1,35 +1,39 @@
 from src.const import MAX_PWM_DUTY, BLINK_SPAN_MS
 from src.enums.reg_led_type import LedRGBType
 from src.enums.state_enum import DeviceState
-from micropico import LedPWM
-from src.interfaces.output_device import OutputDevice
+from src.interfaces.output_pwm_device import OutputDevicePWM
+from machine import Pin, PWM
 
 
-class LedRGB(OutputDevice):
+class LedRGB(OutputDevicePWM):
     _pin: []
     _init_pin: []
 
     # noinspection PyMissingConstructor
     def __init__(self, red_pin, green_pin, blue_pin, led_type: LedRGBType, frequency: int = 1000):
-        self._pin = [red_pin, green_pin, blue_pin]
-        self._init_pin = [LedPWM(red_pin), LedPWM(green_pin), LedPWM(blue_pin)]
-        self._init_pin[0].freq(frequency)
-        self._init_pin[1].freq(frequency)
-        self._init_pin[2].freq(frequency)
         self._led_type = led_type
-        self._state = DeviceState.OFF
 
+        self._pin = [red_pin, green_pin, blue_pin]
+        self._init_pin = [PWM(Pin(red_pin)), PWM(Pin(green_pin)), PWM(Pin(blue_pin))]
+
+        for led in self._init_pin:
+            led.freq(frequency)
+            led.duty_u16(self._off_duty())
+
+        self._state = DeviceState.OFF
 
         #TODO: pwm warnings
 
     @property
     def led_type(self):
         """
-        :return: Led type common cathode / common anode
+        RGB leds divide in 2 sectors leds with common anode or cathode.
+        We must distinguish it in order to use rgb leds.
+        :return: Led type.
         """
         return self._led_type
 
-    def blink(self, r: int, g: int, b: int, n: int = 1, blink_ms:int = 600):
+    def blink(self, r: int, g: int, b: int, n: int = 1, blink_ms: int = 1800):
         """
         Blinks led. If led is on additional function finish time extends by BLINK_SPAN_MS.
         (Turing off LED before blinks, turning led on after blinks)
@@ -46,25 +50,30 @@ class LedRGB(OutputDevice):
         internal_state = self._state
         self._state = DeviceState.BUSY
 
-        old_r = self._init_pin[0].duty
-        old_g = self._init_pin[1].duty
-        old_b = self._init_pin[2].duty
+        old_r = self._init_pin[0].duty_u16()
+        old_g = self._init_pin[1].duty_u16()
+        old_b = self._init_pin[2].duty_u16()
 
         animate_avg = int(max(BLINK_SPAN_MS, blink_ms) / 3)
 
         if internal_state is DeviceState.ON:
             for led in self._init_pin:
-                led.value(self._off_duty(), BLINK_SPAN_MS)
+                self._gently(led.duty_u16, led.duty_u16(), self._off_duty(), animate_avg)
+
+        if self._led_type is LedRGBType.Anode:
+            r = MAX_PWM_DUTY - r
+            g = MAX_PWM_DUTY - g
+            b = MAX_PWM_DUTY - b
 
         for _ in range(n):
+            for led, value in zip(self._init_pin, [r, g, b]):
+                self._gently(led.duty_u16, led.duty_u16(), value, animate_avg)
             for led in self._init_pin:
-                led.value(self._off_duty(), BLINK_SPAN_MS)
-            for led, value in zip(self._init_pin, [old_r, old_g, old_b]):
-                led.value(value, animate_avg)
+                self._gently(led.duty_u16, led.duty_u16(), self._off_duty(), animate_avg)
 
         if internal_state is DeviceState.ON:
             for led, value in zip(self._init_pin, [old_r, old_g, old_b]):
-                led.value(value, animate_avg)
+                self._gently(led.duty_u16, led.duty_u16(), value, animate_avg)
 
         self._state = internal_state
 
@@ -77,15 +86,15 @@ class LedRGB(OutputDevice):
         if self._state is DeviceState.BUSY:
             return
 
-        if animate_ms < 150:
-            animate_ms = 150
+        if animate_ms < BLINK_SPAN_MS:
+            animate_ms = BLINK_SPAN_MS
 
         self._state = DeviceState.BUSY
 
         animate_avg = int(animate_ms / 3)
 
         for led in self._init_pin:
-            led.value(self._on_duty(), animate_avg)
+            self._gently(led.duty_u16, led.duty_u16(), self._on_duty(), animate_avg)
 
         self._state = DeviceState.ON
 
@@ -100,17 +109,17 @@ class LedRGB(OutputDevice):
 
         self._state = DeviceState.BUSY
 
-        if animate_ms < 150:
-            animate_ms = 150
+        if animate_ms < BLINK_SPAN_MS:
+            animate_ms = BLINK_SPAN_MS
 
         animate_avg = int(animate_ms / 3)
 
         for led in self._init_pin:
-            led.value(self._off_duty(), animate_avg)
+            self._gently(led.duty_u16, led.duty_u16(), self._off_duty(), animate_avg)
 
         self._state = DeviceState.ON
 
-    def color(self, r: int, g: int, b: int, animate_ms=600):
+    def color(self, r: int, g: int, b: int, animate_ms: int = 600):
         """
         Turn on device with specified rgb values or turn's led on maximal duty.
         Could be used to animate value change.
@@ -125,10 +134,10 @@ class LedRGB(OutputDevice):
 
         self._state = DeviceState.BUSY
 
-        if animate_ms < 150:
-            animate_ms = 150
+        if animate_ms < BLINK_SPAN_MS:
+            animate_ms = BLINK_SPAN_MS
 
-        if self._led_type is LedRGBType.Cathode:
+        if self._led_type is LedRGBType.Anode:
             r = MAX_PWM_DUTY - r
             g = MAX_PWM_DUTY - g
             b = MAX_PWM_DUTY - b
@@ -136,7 +145,7 @@ class LedRGB(OutputDevice):
         animate_avg = int(animate_ms / 3)
 
         for led, value in zip(self._init_pin, [r, g, b]):
-            led.value(value, animate_avg)
+            self._gently(led.duty_u16, led.duty_u16(), value, animate_avg)
 
         self._state = DeviceState.ON
 
@@ -158,13 +167,10 @@ class LedRGB(OutputDevice):
         """
         :return: Returns duty value for led off state.
         """
-        return 0 if self.led_type is LedRGBType.Cathode else MAX_PWM_DUTY
+        return 0 if self._led_type is LedRGBType.Cathode else MAX_PWM_DUTY
 
     def _on_duty(self):
         """
         :return: Returns duty value for led off state.
         """
-        return MAX_PWM_DUTY if self.led_type is LedRGBType.Cathode else 0
-
-
-
+        return MAX_PWM_DUTY if self._led_type is LedRGBType.Cathode else 0

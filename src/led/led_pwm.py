@@ -32,15 +32,15 @@ class LedPWM(OutputDevicePWM):
         blink_ms = max(BLINK_SPAN_MS, blink_ms)
 
         if internal_state is DeviceState.ON:
-            self.off(animate_ms=BLINK_SPAN_MS)
+            self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), self._off_duty(), BLINK_SPAN_MS)
 
         span = int(blink_ms / 2)
 
         for _ in range(n):
-            self._gently(self._init_pin.duty_u16, duty, span)
-            self._gently(self._init_pin.duty_u16, self._off_duty(), span)
+            self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, span)
+            self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), self._off_duty(), span)
 
         if internal_state is DeviceState.ON:
-            self._gently(self._init_pin.duty_u16, old, BLINK_SPAN_MS)
+            self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), old, BLINK_SPAN_MS)
 
         self._state = internal_state
