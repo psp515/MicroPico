@@ -48,7 +48,7 @@ class Button(InputDevice):
         if diff < self._pressed_span:
             sleep_ms(self._pressed_span - diff)
 
-        pressed = bool(self._read())
+        pressed = not bool(self._read())
 
         if pressed:
             self._last_read = ticks_ms()

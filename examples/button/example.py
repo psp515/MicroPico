@@ -14,6 +14,5 @@ while True:
         led.high()
         i += 1
         print("Clicked", i)
-        sleep(1)
     else:
         led.low()
