@@ -24,7 +24,8 @@ Example uses photorezistor. Reads value from photorezistor then changes led brig
 
 Example shows how on, off and blink works for led with pwm.
 
-TODO SCHEMA 
-<br/>
-TODO SCHEMA WITH PHOTOREZISTOR
-<br/>
+#### Schema for ex.1 and ex.3
+<img src="https://github.com/psp515/MicroPico/blob/main/images/led/ex1ex3_schema.png" alt="symbol" height=256/>
+
+#### Schema for ex.2
+<img src="https://github.com/psp515/MicroPico/blob/main/images/led/ex2_schema.png" alt="symbol" height=256/>
