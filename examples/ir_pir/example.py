@@ -1,9 +1,9 @@
 from machine import Pin
 from utime import sleep
-from micropico import PIR
+from micropico import PIR, IR
 
 led = Pin(25, Pin.OUT)
-pir = PIR(28)
+pir = PIR(28) # IR(28)
 led.low()
 sleep(1)
 i = 0
@@ -13,10 +13,9 @@ while True:
         print(f"{i}. LED On")
         led.high()
         sleep(5)
-        i+=1
+        i += 1
     else:
         print(f"{i}. Waiting for movement")
         led.low()
-        sleep(1)
-        i+=1
-    
+        sleep(0.1)
+        i += 1

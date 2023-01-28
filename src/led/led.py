@@ -1,50 +1,43 @@
-from src.interfaces.base_led import BaseLed
-from utime import sleep_us
+from src.const import BLINK_SPAN_MS
+from src.enums.state_enum import DeviceState
+from src.interfaces.output_device import OutputDevice
+from utime import sleep_ms
 
 
-class Led(BaseLed):
-    """
-    Simple Led class for managing single led element.
-    """
-    def __init__(self, pin, frequency=1000, default_duty=0, default_blink_time_ms=500, interval_break_us=1500):
-        super().__init__(pin, frequency, default_duty, interval_break_us)
-        self.default_blink_time_ms = default_blink_time_ms
+class Led(OutputDevice):
+    def __init__(self, pin: int):
+        super().__init__(pin)
 
-    def blink(self, n=1, value=None, blink_time_ms=None):
+    def blink(self, n: int = 1, blink_ms: int = 40):
         """
-        Blinks led. If led is on, method first disables led then blinks and after blinks automatically turns led on
-        with previous value (Total time needed is extended by half of blink_time_ms or default_blink_time_ms).
-        Takes value argument in range 0-255.
+        Blinks led. If led is on additional function finish time extends by 20ms.
+        (Turing off LED before blinks, turning led on after blinks)
 
-        :param n: Number of blinks.
-        :param value: Blink glow in range 0-255.
-        :param blink_time_ms: Time for one blink.
+        :param n: Number of blinkS.
+        :param blink_ms: Single blink time.
         """
 
-        if blink_time_ms is not None:
-            timespan = self._calc_span_us(blink_time_ms, 2)
-        else:
-            timespan = self._calc_span_us(self.default_blink_time_ms, 2)
+        if self._state is DeviceState.BUSY:
+            return
 
-        duty = self._on_duty() if value is None else self._calc_duty(value)
+        blink_ms = max(BLINK_SPAN_MS, blink_ms)
 
-        if self._duty != 0:
-            self._led.duty_u16(0)
-            sleep_us(self.interval_span_us)
+        internal_state = self._state
+        self._state = DeviceState.BUSY
+
+        if internal_state is DeviceState.ON:
+            self._init_pin.value(0)
+            sleep_ms(BLINK_SPAN_MS)
+
+        span = int(blink_ms / 2)
 
         for _ in range(n):
-            self._blink(timespan, duty)
+            self._init_pin.value(1)
+            sleep_ms(span)
+            self._init_pin.value(0)
+            sleep_ms(span)
 
-        self._led.duty_u16(self._duty)
+        if internal_state is DeviceState.ON:
+            self._init_pin.value(1)
 
-    def _blink(self, timespan, duty):
-        """
-        Blinks led.
-
-        :param timespan: Half of total blink time.
-        :param duty: Led glow.
-        """
-        self._led.duty_u16(duty)
-        sleep_us(timespan)
-        self._led.duty_u16(0)
-        sleep_us(timespan)
+        self._state = internal_state

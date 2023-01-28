@@ -1,15 +1,19 @@
 from machine import Pin
 import utime
 from src.enums.length_units_enum import LengthUnit
+from src.enums.state_enum import DeviceState
+from src.interfaces.input_device import InputDevice
 from src.tools.distance import Distance
 
 
-class Ultrasonic:
+class Ultrasonic(InputDevice):
     """
     Class for managing ultasonic distance sensor.
     """
     precision: int
     unit: LengthUnit
+    _pin: []
+    _init_pin: []
 
     def __init__(self,
                  trigger_pin: int,
@@ -24,11 +28,42 @@ class Ultrasonic:
         :param unit: Unit of distance value.
         :param precision:
         """
-        self._trigger = Pin(trigger_pin, Pin.OUT)
-        self._trigger.low()
-        self._echo = Pin(echo_pin, Pin.IN)
+
+        self._pin = [trigger_pin, echo_pin]
+        self._init_pin = [Pin(trigger_pin, Pin.OUT), Pin(echo_pin, Pin.IN)]
+
+        self.trigger.low()
         self.unit = unit
         self.precision = precision
+        self._state = DeviceState.ON
+
+    @property
+    def initialized_pin(self):
+        """
+        :return: Pin object representing device with list [trigger, echo].
+        """
+        return self._init_pin
+
+    @property
+    def pin(self):
+        """
+        :return: Returns pin number list [trigger, echo].
+        """
+        return self._pin
+
+    @property
+    def echo(self):
+        """
+        :return: Returns echo pin.
+        """
+        return self._init_pin[1]
+
+    @property
+    def trigger(self):
+        """
+        :return: Returns trigger pin.
+        """
+        return self._init_pin[0]
 
     @property
     def distance(self):
@@ -38,12 +73,19 @@ class Ultrasonic:
         :return: Distance object.
         """
 
-        duration = self.measure()
+        if self._state is DeviceState.BUSY:
+            return Distance(-1, self.unit)
+
+        self._state = DeviceState.BUSY
+
+        duration = self._read()
+        length = round(duration / self._duration_to_length(self.unit), self.precision)
+
+        self._state = DeviceState.ON
 
         if duration == -1:
             return Distance(-1, self.unit)
 
-        length = round(duration / self._duration_cast(self.unit), self.precision)
         return Distance(length, self.unit)
 
     def measure(self):
@@ -52,13 +94,25 @@ class Ultrasonic:
 
         :return: Measurement duration, -1 (Invalid received information) or -2 (should be too big distance).
         """
-        self._trigger.high()
+        if self._state is DeviceState.BUSY:
+            return -1
+
+        self._state = DeviceState.BUSY
+
+        duration = self._read()
+
+        self._state = DeviceState.ON
+
+        return duration
+
+    def _read(self):
+        self.trigger.high()
         utime.sleep_us(10)
-        self._trigger.low()
+        self.trigger.low()
 
         primary = utime.ticks_us() + 10000
 
-        while self._echo.value() == 0 and utime.ticks_us() < primary:
+        while self.echo.value() == 0 and utime.ticks_us() < primary:
             pass
 
         start = utime.ticks_us()
@@ -69,7 +123,7 @@ class Ultrasonic:
 
         secondary = start + 40000
 
-        while self._echo.value() == 1 and utime.ticks_us() < secondary:
+        while self.echo.value() == 1 and utime.ticks_us() < secondary:
             pass
 
         duration = utime.ticks_us() - start
@@ -80,7 +134,8 @@ class Ultrasonic:
 
         return duration
 
-    def _duration_cast(self, unit: LengthUnit):
+
+    def _duration_to_length(self, unit: LengthUnit):
         """
         Converts unit to constant used in calculations for ultrasonic distance sensor.
 

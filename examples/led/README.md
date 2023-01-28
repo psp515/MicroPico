@@ -8,18 +8,24 @@ Light-emitting diode (LED) uses electroluminescence, when excess energy is gener
 
 ### Electric Symbol
 
-<img src="https://github.com/psp515/MicroPico/blob/led/images/led/led_symbol.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/led/led_symbol.png" alt="symbol" height=256/>
 
 ### Examples
 
 **Example 1**
 
-Example shows how on, off and blink works.
+Example shows how on, off and blink works for led.
 
 **Example 2**
 
 Example uses photorezistor. Reads value from photorezistor then changes led brigntness.
 
-TODO SCHEMA 
-<br/>
-TODO SCHEMA WITH PHOTOREZISTOR
+**Example 3**
+
+Example shows how on, off and blink works for led with pwm.
+
+#### Schema for ex.1 and ex.3
+<img src="https://github.com/psp515/MicroPico/blob/main/images/led/ex1ex3_schema.png" alt="symbol" height=256/>
+
+#### Schema for ex.2
+<img src="https://github.com/psp515/MicroPico/blob/main/images/led/ex2_schema.png" alt="symbol" height=256/>

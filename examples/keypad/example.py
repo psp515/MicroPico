@@ -13,4 +13,4 @@ while True:
     if x == "*":
         break
 
-print("Program finished")
+print("Program finished") 
