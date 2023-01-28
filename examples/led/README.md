@@ -8,7 +8,7 @@ Light-emitting diode (LED) uses electroluminescence, when excess energy is gener
 
 ### Electric Symbol
 
-<img src="https://github.com/psp515/MicroPico/blob/led/images/led/led_symbol.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/led/led_symbol.png" alt="symbol" height=256/>
 
 ### Examples
 
