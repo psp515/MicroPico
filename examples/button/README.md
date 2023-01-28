@@ -8,13 +8,12 @@ Button  is a simple switch mechanism to control some aspect of a machine.
 
 ### Electric Symbol
 
-TODO
+<img src="https://github.com/psp515/MicroPico/blob/main/images/button/button.png" alt="symbol" height=128/>
 
 ### Examples
 
 **Example 1**
-
-Example turns on led for 1 s when button is pressed.
+Example turns on led when button is pressed.
 
 ### Schema
-TODO
+<img src="https://github.com/psp515/MicroPico/blob/main/images/pir/pir_schema.png" alt="symbol" height=256/>
