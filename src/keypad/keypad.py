@@ -1,36 +1,37 @@
 import array
 
 from machine import Pin
-import utime
 
+from utime import ticks_ms, ticks_diff, sleep_ms
+
+from src.enums.state_enum import DeviceState
 from src.exceptions.invalid_keyboard import InvalidKeyboardException
+from src.interfaces.input_device import InputDevice
 
 
-class Keypad:
+class Keypad(InputDevice):
     """
     Class for managing simple keypad (4x4 5x4 etc.).
     """
-    _horizontal_pins: array
-    _vertical_pins: array
+    _horizontal_init_pins: array
+    _vertical_init_pins: array
     _keyboard: array
+    _pin: []
+    _pressed_span: int
 
-    def __init__(self, horizontal_pins: array, vertical_pins: array, keyboard: array=None):
-        """
-        Function initializes keypad.
-
-        :param horizontal_pins: Horizontal (rows) pin list. (lines starting from left/right)
-        :param vertical_pins: Vertical (columns) pin list. (lines starting from down/top)
-        :param keyboard: List of strings.
-        :param is_working: value can be read from
-        """
+    # noinspection PyMissingConstructor
+    def __init__(self, horizontal_pins: array,
+                 vertical_pins: array,
+                 keyboard: array = None,
+                 pressed_span_ms: int = 250):
         if keyboard is None:
             keyboard = [["1", "2", "3", "A"],
                         ["4", "5", "6", "B"],
                         ["7", "8", "9", "C"],
                         ["*", "0", "#", "D"]]
 
-        self._horizontal_pins = []
-        self._vertical_pins = []
+        self._horizontal_init_pins = []
+        self._vertical_init_pins = []
 
         if len(horizontal_pins) != len(keyboard) or len(vertical_pins) != len(keyboard[0]):
             raise InvalidKeyboardException("Passed keyboard does not match pins.")
@@ -39,14 +40,55 @@ class Keypad:
         self._init_vertical_pins(vertical_pins)
 
         self._keyboard = keyboard
-        self._last_read = utime.ticks_ms()
+        self._last_read = ticks_ms()
 
-        self.horizontal_pins_count = len(horizontal_pins)
-        self.vertical_pins_count = len(vertical_pins)
+        self._horizontal_pins = horizontal_pins
+        self._vertical_pins = vertical_pins
+
+        self._state = DeviceState.ON
+
+        self._pressed_span = pressed_span_ms
+
+    @property
+    def pressed_span(self):
+        """
+        Represents minimal time span between presses.
+        :return: Minimal time span between presses in ms.
+        """
+        return self._pressed_span
+
+    @pressed_span.setter
+    def pressed_span(self, span: int):
+        """
+        Represents minimal time span between presses.
+
+        :param span: Span in ms.
+        """
+        if span < 0:
+            return
+
+        self._pressed_span = span
 
     @property
     def keyboard(self):
+        """
+        :return: keyboard passed in constructor
+        """
         return self._keyboard
+
+    @property
+    def initialized_pin(self):
+        """
+        :return: Returns list [vertical pins, horizontal pins].
+        """
+        return [self._vertical_init_pins, self._horizontal_init_pins]
+
+    @property
+    def pin(self):
+        """
+        :return: Returns list [vertical pins numbers, horizontal pins numbers].
+        """
+        return [self._vertical_pins, self._horizontal_pins]
 
     def _init_horizontal_pins(self, pins):
         """
@@ -56,36 +98,47 @@ class Keypad:
         """
 
         for pin in pins:
-            self._horizontal_pins.append(Pin(pin, Pin.OUT))
+            self._horizontal_init_pins.append(Pin(pin, Pin.OUT))
 
     def _init_vertical_pins(self, pins):
         """
         Initialize vertical pins.
 
-        :param pins: Vertiacal pin list.
+        :param pins: Vertical pin list.
         """
 
         for pin in pins:
-            self._vertical_pins.append(Pin(pin, Pin.IN, Pin.PULL_DOWN))
+            self._vertical_init_pins.append(Pin(pin, Pin.IN, Pin.PULL_DOWN))
 
     def read(self):
         """
         Returns pressed key or "". Also prevents from clicking keys too fast.
         """
 
-        diff = utime.ticks_diff(utime.ticks_ms(), self._last_read)
+        if self._state is DeviceState.BUSY:
+            return ""
 
-        if diff < 300:
-            utime.sleep_ms(300 - diff)
+        self._state = DeviceState.BUSY
 
-        for row in range(len(self._horizontal_pins)):
-            self._horizontal_pins[row].value(1)
-            for col in range(len(self._vertical_pins)):
-                if self._vertical_pins[col].value() == 1:
-                    self._horizontal_pins[row].value(0)
-                    self._last_read = utime.ticks_ms()
+        key = self._read()
+
+        self._state = DeviceState.ON
+        return key
+
+    def _read(self):
+        diff = ticks_diff(ticks_ms(), self._last_read)
+
+        if diff < self._pressed_span:
+            sleep_ms(self._pressed_span - diff)
+
+        for row in range(len(self._horizontal_init_pins)):
+            self._horizontal_init_pins[row].value(1)
+            for col in range(len(self._vertical_init_pins)):
+                if self._vertical_init_pins[col].value() == 1:
+                    self._horizontal_init_pins[row].value(0)
+                    self._last_read = ticks_ms()
                     return self._keyboard[row][col]
 
-            self._horizontal_pins[row].value(0)
+            self._horizontal_init_pins[row].value(0)
 
         return ""

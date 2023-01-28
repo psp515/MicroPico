@@ -1,17 +1,25 @@
 from machine import Pin
 
-class InputDevice:
+from src.enums.state_enum import DeviceState
+from src.interfaces.device import Device
+
+
+class InputDevice(Device):
     """
     Base class for input devices.
     """
-    _pin: Pin
 
-    def __init__(self, pin, pull=Pin.PULL_UP):
-        self._pin = Pin(pin, Pin.IN, pull)
+    def __init__(self, pin: int, pull=Pin.PULL_UP):
+        super().__init__(pin)
+        self._init_pin = Pin(pin, Pin.IN, pull)
+        self._state = DeviceState.ON
 
-    def _state_to_boolean(self, state: int):
+    def _read(self):
         """
-        :param state: Device value.
-        :return: State as boolean.
+        Internal method for reading value.
         """
-        return bool(state)
+        return self._init_pin.value()
+
+    def __str__(self):
+        super(InputDevice, self).__str__() + \
+        f"Class: {self.__class__.__name__}\n"
