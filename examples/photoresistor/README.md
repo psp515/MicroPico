@@ -4,7 +4,7 @@
 </div>  
 <br/>
 
-Photorezistor (LDR) is simple light senosr. It uses the photoelectric effect, so the more light shines the more electrons are knock out what results bigger read value on ADC pin.
+Photoresistor, also known as a light-dependent resistor (LDR), is a type of resistor whose resistance changes based on the amount of light it is exposed to. Photoresistors are made of a semiconductor material, typically cadmium sulfide (CdS), which allows them to change resistance in response to changes in light intensity. Photoresistors can be used in a wide range of applications, including light-sensitive controls, automatic lighting systems, and optical sensors. They are also widely used in burglar alarms, street lighting, and other security systems.
 
 ### Electric Symbol
 
