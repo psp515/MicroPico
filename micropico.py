@@ -8,6 +8,7 @@ from src.button.button import Button
 from src.led.led import Led
 from src.led.led_pwm import LedPWM
 from src.ledrgb.led_rgb import LedRGB
+from src.dht11.dht11 import DHT11
 
 # Enums
 from src.enums.length_units_enum import LengthUnit
