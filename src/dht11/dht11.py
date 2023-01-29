@@ -37,6 +37,15 @@ class DHT11(InputDevice):
         self._read()
 
     @property
+    def initialized_pin(self):
+        """
+        Function returns None in this module because pin is initialized multiple times.
+        (In and Out operations are made on single pin)
+        :return: None.
+        """
+        return None
+
+    @property
     def last_measure_success(self):
         """
         Represents time when was last successful data read.
