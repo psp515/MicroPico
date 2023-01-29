@@ -97,7 +97,7 @@ Potentiometer | ✅  | ✅ | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ | ✅
 Ultrasonic | ✅  | ✅ | ✅ | ✅
 NEC IR | ❌  | ❌ | ❌ | ❌
-DHT11 | ❌ | ❌ | ❌ | ❌
+DHT11 | ✅ | ✅ | ✅ | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
 Buzzer | ❌  | ❌ | ❌ | ❌
 
