@@ -75,7 +75,7 @@ To use this project simply downolad the [ThonnyIDE](https://thonny.org/) and thi
 Ofcourse you need to have any Raspberry Pi Pico board (with micropython) and element you want to check.
 (In order to use it on Raspbery Pi some functions may need some slight fixes)
 
-Put src folder and micropico.py in your raspberry pi pico and run some examples.
+With thonny IDE open Micropico projcet and upload src folder and micropico.py to your raspberry pi pico and you are ready to run some examples.
 
 ### Usage 
 
@@ -85,13 +85,13 @@ You may want to use this repository in order to see how easy is to create progra
 
 Elements with added code examples and simple usage examples.
 
-Element  | 'Lib' Code | Code Example | Example Schema | Tested
+Element  | Lib Code | Example | Schema | Tested
 :-: | :-: | :-: | :-: | :-:
 Led | ✅  | ✅  | ✅ | ✅
 RGB Led | ✅  | ✅ | ✅ | ✅
 Keypad | ✅ | ✅ | ✅ |✅
-PIR  | ✅  | ✅ | ✅ | ✅
-IR  | ✅  | ✅ | ✅ | ✅
+PIR | ✅  | ✅ | ✅ | ✅
+IR Break Line | ✅  | ✅ | ✅ | ✅
 Button | ✅  | ✅ | ✅ | ✅
 Potentiometer | ✅  | ✅ | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ | ✅
@@ -100,6 +100,11 @@ NEC IR | ❌  | ❌ | ❌ | ❌
 DHT11 | ✅ | ✅ | ✅ | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
 Buzzer | ❌  | ❌ | ❌ | ❌
+
+(Lib Code - means libary code for input/output device,
+Example - means meas small showcase of working functions,
+Schema - means screen with connection example to board ,
+Tested - means example working as expected)
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
