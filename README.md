@@ -99,7 +99,6 @@ Ultrasonic | ✅  | ✅ | ✅ | ✅
 NEC IR | ❌  | ❌ | ❌ | ❌
 DHT11 | ✅ | ✅ | ✅ | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
-Buzzer | ❌  | ❌ | ❌ | ❌
 
 (Lib Code - means libary code for input/output device,
 Example - means meas small showcase of working functions,
