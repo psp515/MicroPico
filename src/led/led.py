@@ -8,6 +8,18 @@ class Led(OutputDevice):
     def __init__(self, pin: int):
         super().__init__(pin)
 
+    def toggle(self):
+        """
+        Toggles pin value.
+        """
+        if self._state is DeviceState.BUSY:
+            return
+
+        if self._state is DeviceState.ON:
+            self.off()
+        else:
+            self.on()
+
     def blink(self, n: int = 1, blink_ms: int = 40):
         """
         Blinks led. If led is on additional function finish time extends by 20ms.

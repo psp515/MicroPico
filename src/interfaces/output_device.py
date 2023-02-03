@@ -32,18 +32,6 @@ class OutputDevice(Device):
         self._init_pin.value(0)
         self._state = DeviceState.OFF
 
-    def toggle(self):
-        """
-        Toggles pin value.
-        """
-        if self._state is DeviceState.BUSY:
-            return
-
-        if self._state is DeviceState.ON:
-            self.off()
-        else:
-            self.on()
-
     def __str__(self):
         super(OutputDevice, self).__str__() + \
         f"Class: {self.__class__.__name__}\n"
