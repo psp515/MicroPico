@@ -18,6 +18,7 @@ class Device:
     @property
     def initialized_pin(self):
         """
+        Represents used initialized pins for device.
         :return: Pin object representing device.
         """
         return self._init_pin
@@ -25,7 +26,8 @@ class Device:
     @property
     def pin(self):
         """
-        :return: Returns device pin number.
+        Represents used pins numbers for device.
+        :return: Device pin number.
         """
         return self._pin
 

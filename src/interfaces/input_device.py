@@ -22,4 +22,4 @@ class InputDevice(Device):
 
     def __str__(self):
         super(InputDevice, self).__str__() + \
-        f"Class: {self.__class__.__name__}\n"
+        f" Class: {self.__class__.__name__}\n"
