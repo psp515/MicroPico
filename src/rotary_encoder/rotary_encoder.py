@@ -13,12 +13,38 @@ class RotaryEncoder(InputDevice):
     _init_pin: []
 
     # noinspection PyMissingConstructor
-    def __init__(self, clk: int, dt: int, sw: int):
+    def __init__(self, clk: int, dt: int, sw: int, min_pos: int = 0, max_pos: int = 100):
         self._pin = [clk, dt, sw]
-        self._init_pin = [Pin(clk, Pin.IN), Pin(dt, Pin.IN), Pin(sw, Pin.IN)]
-        self._clk_val = self._pin[0].value()
+        self._init_pin = [Pin(clk, Pin.IN, Pin.PULL_UP),
+                          Pin(dt, Pin.IN, Pin.PULL_UP),
+                          Pin(sw, Pin.IN, Pin.PULL_UP)]
+        self._prev = self.clk.value()
         self._pos = 0
         self._state = DeviceState.ON
+        self._min_pos = min_pos
+        self._max_pos = max_pos
+
+    @property
+    def min_position(self):
+        """
+        Minimal position of rotary encoder.
+        """
+        return self._min_pos
+
+    @min_position.setter
+    def min_position(self, min_pos):
+        self._min_pos = min_pos
+
+    @property
+    def max_position(self):
+        """
+        Maximal position of rotary encoder.
+        """
+        return self._max_pos
+
+    @max_position.setter
+    def max_position(self, max_pos):
+        self._max_pos = max_pos
 
     @property
     def clk(self):
@@ -45,7 +71,7 @@ class RotaryEncoder(InputDevice):
     def initialized_pin(self):
         """
         Represents used initialized pins for device.
-        :return: Tuple of Pin objects (clk, dt, sw).
+        :return: List of Pin objects (clk, dt, sw).
         """
         return self._init_pin
 
@@ -53,10 +79,11 @@ class RotaryEncoder(InputDevice):
     def pin(self):
         """
         Represents used pins numbers for device.
-        :return: Tuple of numbers (clk, dt, sw).
+        :return: List of numbers (clk, dt, sw).
         """
         return self._pin
 
+    @property
     def position(self):
         """
         Returns rotator position since start, based od read value times.
@@ -68,10 +95,12 @@ class RotaryEncoder(InputDevice):
         """
         Returns action read on device.
 
-        :return: Enum
+        :return: Element of RotaryEncoderAction.
         """
         if self._state is DeviceState.BUSY:
             return
+
+        self._state = DeviceState.BUSY
 
         action = self._read()
 
@@ -80,18 +109,21 @@ class RotaryEncoder(InputDevice):
         return action
 
     def _read(self):
-        if self.sw.value():
+        val = self._init_pin[0].value()
+
+        if val != self._prev:
+            if val == 0:
+                if self._init_pin[1].value() == 0:
+                    self._pos = max(self._min_pos, self._pos - 1)
+                    self._prev = val
+                    return RotaryEncoderAction.CounterClockwise
+                else:
+                    self._pos = min(self._max_pos, self._pos + 1)
+                    self._prev = val
+                    return RotaryEncoderAction.Clockwise
+            self._prev = val
+
+        if self.sw.value() == 0:
             return RotaryEncoderAction.Click
 
-        val = self.clk.value()
-
-        if val != self._clk_val:
-            if self.dt.value() != val:
-                self._pin += 1
-                return RotaryEncoderAction.Clockwise
-            else:
-                self._pin -= 1
-                return RotaryEncoderAction.CounterClockwise
-
-        self._clk_val = val
         return RotaryEncoderAction.NoAction

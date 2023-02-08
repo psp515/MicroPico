@@ -9,18 +9,21 @@ from src.led.led import Led
 from src.led.led_pwm import LedPWM
 from src.ledrgb.led_rgb import LedRGB
 from src.dht11.dht11 import DHT11
+from src.rotary_encoder.rotary_encoder import RotaryEncoder
 
 # Enums
 from src.enums.length_units_enum import LengthUnit
 from src.enums.temperature_units_enum import TemperatureUnit, get_temperatureunit_name, get_temperatureunit_shortname
 from src.enums.state_enum import DeviceState
 from src.enums.reg_led_type import LedRGBType
+from src.enums.rotary_encoder_action import RotaryEncoderAction
 
 # Tools
 from src.tools.temperature_converter import TemperatureConverter
 from src.tools.temperature import Temperature
 from src.tools.byte_reciver import BytesReciver
 from src.tools.bytes_validator import BytesValidator
+from src.tools.distance import Distance
 
 # Exceptions
 from src.exceptions.invalid_pin_exception import InvalidPinException

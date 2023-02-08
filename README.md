@@ -96,9 +96,10 @@ Button | ✅  | ✅ | ✅ | ✅
 Potentiometer | ✅  | ✅ | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ | ✅
 Ultrasonic | ✅  | ✅ | ✅ | ✅
-NEC IR | ❌  | ❌ | ❌ | ❌
 DHT11 | ✅ | ✅ | ✅ | ✅
+Rotary Encoder | ✅ | ✅ | ❌ | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
+NEC IR | ❌  | ❌ | ❌ | ❌
 
 (Lib Code - means libary code for input/output device,
 Example - means meas small showcase of working functions,
