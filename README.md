@@ -32,15 +32,9 @@ Project is created in order to get acquainted with microcontrollers programming 
 This repository will contain code with usage exaples (with example connections) for different elements (lcd, keyboards, etc.).
 Most examples will be created with micropython, yet examples with c/c++ might occur.
 <br/>
+Also each example contains short element and example description.
 
-Also in futre I am planning to create few project based on knowledge gained here, like:
-
-- [ ] Keyboard
-- [ ] Weather Station
-- [ ] Drone 
-- [ ] Led Strip Driver 
-
-<br/>
+Also in futre I am planning to create few project based on knowledge gained here. (Links will be added when they appear)
 
 <b>Used boards:</b>
 <div>
@@ -52,7 +46,6 @@ Also in futre I am planning to create few project based on knowledge gained here
     <img src="https://img.shields.io/badge/Raspberry Pi Pico W-Code?&logo=raspberrypi&logoColor=black&color=F1C232" />
   </a>
 </div>
-
 
 ### Built With
 
