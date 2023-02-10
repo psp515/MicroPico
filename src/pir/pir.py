@@ -1,5 +1,7 @@
 from time import ticks_us
 
+from machine import Pin
+
 from src.enums.state_enum import DeviceState
 from src.interfaces.input_device import InputDevice
 
@@ -8,8 +10,8 @@ class PIR(InputDevice):
     """
     Class represents PIR motion sensor.
     """
-    def __init__(self, pin):
-        super().__init__(pin)
+    def __init__(self, pin: int, pull: Pin = Pin.PULL_UP):
+        super().__init__(pin, pull)
         self._last_movement = -1
 
     @property

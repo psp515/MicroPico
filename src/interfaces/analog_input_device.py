@@ -1,5 +1,6 @@
 from machine import ADC, Pin
 
+from src.const import MAX_ADC, PICO_PIN_VOLTAGE
 from src.enums.state_enum import DeviceState
 from src.interfaces.device import Device
 

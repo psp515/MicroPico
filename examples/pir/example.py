@@ -1,9 +1,9 @@
 from machine import Pin
 from utime import sleep
-from micropico import PIR, IR
+from micropico import PIR
 
 led = Pin(25, Pin.OUT)
-pir = PIR(28) # IR(28)
+pir = PIR(28) # remember to set right pull
 led.low()
 sleep(1)
 i = 0
