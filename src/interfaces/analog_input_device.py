@@ -1,8 +1,6 @@
 from machine import ADC, Pin
 
 from src.enums.state_enum import DeviceState
-from src.exceptions.invalid_pin_exception import InvalidPinException
-from src.const import ADC_PINS, MAX_ADC, PICO_PIN_VOLTAGE
 from src.interfaces.device import Device
 
 
@@ -21,9 +19,6 @@ class AnalogInputDevice(Device):
         :raises InvalidPinException: When invalid pin provided.
         """
         super().__init__(pin)
-
-        if pin not in ADC_PINS:
-            raise InvalidPinException(f"Provided pin ({pin}) is not a ADC pin.")
 
         self._init_pin = ADC(Pin(pin))
         self._threshold = threshold

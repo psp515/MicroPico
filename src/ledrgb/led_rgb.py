@@ -22,8 +22,6 @@ class LedRGB(OutputDevicePWM):
 
         self._state = DeviceState.OFF
 
-        #TODO: pwm warnings
-
     @property
     def led_type(self):
         """

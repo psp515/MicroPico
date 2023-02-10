@@ -8,7 +8,7 @@ from src.tools.distance import Distance
 
 class Ultrasonic(InputDevice):
     """
-    Class for managing ultasonic distance sensor.
+    Class for managing ultrasonic distance sensor.
     """
     precision: int
     unit: LengthUnit
