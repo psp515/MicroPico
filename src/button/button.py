@@ -1,16 +1,19 @@
+from src.enums.button_state import ButtonState
 from src.enums.state_enum import DeviceState
 from src.interfaces.input_device import InputDevice
 from utime import ticks_ms, ticks_diff, sleep_ms
 
 
 class Button(InputDevice):
-
+    """
+    Class represents button.
+    """
     _last_read: int
 
-    def __init__(self, pin: int, _pressed_span_ms=250):
+    def __init__(self, pin: int, pressed_span_ms=250):
         super().__init__(pin)
         self._last_read = ticks_ms()
-        self._pressed_span = _pressed_span_ms
+        self._pressed_span = pressed_span_ms
 
     @property
     def pressed_span(self):
@@ -34,19 +37,20 @@ class Button(InputDevice):
     @property
     def pressed(self):
         """
-        If button is pressed too soon function delays read.
-        :return: True if button is pressed.
+        Function checks if button was pressed.
+        If button is pressed too soon function returns false
+        :return: True if button is pressed, else false.
         """
 
         if self._state is DeviceState.BUSY:
-            return
+            return False
 
         self._state = DeviceState.BUSY
 
         diff = ticks_diff(ticks_ms(), self._last_read)
 
         if diff < self._pressed_span:
-            sleep_ms(self._pressed_span - diff)
+            return False
 
         pressed = not bool(self._read())
 

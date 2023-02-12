@@ -83,8 +83,7 @@ Element  | Lib Code | Example | Schema | Tested
 Led | ✅  | ✅  | ✅ | ✅
 RGB Led | ✅  | ✅ | ✅ | ✅
 Keypad | ✅ | ✅ | ✅ |✅
-PIR | ✅  | ✅ | ✅ | ✅
-IR Break Line | ✅  | ✅ | ✅ | ✅
+PIR / IR Break Sensor | ✅  | ✅ | ✅ | ✅
 Button | ✅  | ✅ | ✅ | ✅
 Potentiometer | ✅  | ✅ | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ | ✅

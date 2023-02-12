@@ -14,6 +14,7 @@ class Device:
     def __init__(self, pin: int):
         self._pin = pin
         self._state = DeviceState.OFF
+        self._init_pin = None
 
     @property
     def initialized_pin(self):
@@ -41,5 +42,5 @@ class Device:
     def __str__(self):
         return f"Pin: {self._pin},\n" + \
                f"State: {self._state},\n" + \
-               f"Device type: {self._init_pin.__class__.__name__}\n" + \
+               f"Pin type: {self._init_pin.__class__.__name__}\n" + \
                f"Class: {Device.__class__.__name__}\n"

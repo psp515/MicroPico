@@ -33,5 +33,5 @@ class OutputDevice(Device):
         self._state = DeviceState.OFF
 
     def __str__(self):
-        super(OutputDevice, self).__str__() + \
+        return super(OutputDevice, self).__str__() + \
         f"Class: {self.__class__.__name__}\n"

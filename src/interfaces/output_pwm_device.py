@@ -193,5 +193,5 @@ class OutputDevicePWM(OutputDevice):
         return MAX_PWM_DUTY
 
     def __str__(self):
-        super(OutputDevicePWM, self).__str__() + \
+        return super(OutputDevicePWM, self).__str__() + \
         f"Class: {self.__class__.__name__}\n"

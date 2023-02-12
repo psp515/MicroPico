@@ -21,5 +21,5 @@ class InputDevice(Device):
         return self._init_pin.value()
 
     def __str__(self):
-        super(InputDevice, self).__str__() + \
+        return super(InputDevice, self).__str__() + \
         f" Class: {self.__class__.__name__}\n"

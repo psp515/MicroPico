@@ -4,6 +4,7 @@ from src.pir.pir import PIR
 from src.ultrasonic.ultrasonic import Ultrasonic
 from src.keypad.keypad import Keypad
 from src.button.button import Button
+from src.button.irq_button import ButtonIRQ
 from src.led.led import Led
 from src.led.led_pwm import LedPWM
 from src.ledrgb.led_rgb import LedRGB
