@@ -76,7 +76,11 @@ You may want to use this repository in order to see how easy is to create progra
 
 ### Roadmap
 
-Elements with added code examples and simple usage examples.
+Elements with examples.
+
+#### Pooling
+
+Polling periodicall checks if device needs attention. This can be done in a sequential manner or in a priority-based manner (if some devices are more important).
 
 Element  | Lib Code | Example | Schema | Tested
 :-: | :-: | :-: | :-: | :-:
@@ -89,14 +93,24 @@ Potentiometer | ✅  | ✅ | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ | ✅
 Ultrasonic | ✅  | ✅ | ✅ | ✅
 DHT11 | ✅ | ✅ | ✅ | ✅
-Rotary Encoder | ✅ | ✅ | ❌ | ✅
+Rotary Encoder | ✅ | ✅ | 🔜 | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
-NEC IR | ❌  | ❌ | ❌ | ❌
 
 (Lib Code - means libary code for input/output device,
 Example - means meas small showcase of working functions,
 Schema - means screen with connection example to board ,
 Tested - means example working as expected)
+
+#### Interrupts
+
+Interrupts allert CPU when a device needs attention, causing the CPU to pause its current task, handle the interrupt request, and then resume the original task.
+
+Element  | Lib Code | Example | Schema | Tested
+:-: | :-: | :-: | :-: | :-:
+Button | 🚧  | 🚧 | 🚧 | 🚧
+PIR / IR Break Sensor | 🚧  | 🚧 | 🚧 | 🚧
+Rotary Encoder | 🚧  | 🚧 | 🚧 | 🚧
+NEC IR | 🚧  | 🚧 | 🚧 | 🚧
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
