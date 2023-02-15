@@ -18,7 +18,7 @@ ANSI standard
 
 ### Example 
 
-Example reads distance 4 times every 10 seconds and displays calculations with different units.
+Example reads value from adc pin and displays it in range 0-65535 and in 0-100%.
 
-### Schema
+#### Schema
 <img src="https://github.com/psp515/MicroPico/blob/main/images/potentiometr/potentiometr_schema.png" alt="schema" height=256/>
