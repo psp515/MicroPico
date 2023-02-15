@@ -4,7 +4,7 @@
 </div>  
 <br/>
 
-Digital Humidity & Temperature sensor (DHT) is low cost digital sensors with capacitive humidity sensors and thermistors to measure the surrounding air.
+Digital Humidity & Temperature sensor (DHT) is low cost digital sensors with capacitive humidity sensors and thermistors to measure the surrounding air. It is capable of measuring relative humidity from 20% to 90% with an accuracy of ±5%, and temperature from 0°C to 50°C with an accuracy of ±2°C.
 
 ### Electric Symbol
 
