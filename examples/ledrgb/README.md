@@ -4,7 +4,7 @@
 </div>  
 <br/>
 
-RGB led is combination of 3 leds, red(r), green(g) and blue(b). This combination allows to create a lot of colors. RGB led can be connected in 2 ways - common cathode(power is supplyed by r,g,b pin), common anode (power is supplyed by one pin).
+RGB led is combination of 3 leds, red(r), green(g) and blue(b). This combination allows to create a lot of colors. RGB led can be connected in 2 ways - common cathode(power is supplyed by r,g,b pin), common anode (power is supplyed by one pin). With such LED we are able to create 256^3 of different colors (if we assume each led has 256 states of light). 
 
 ### Example
 
