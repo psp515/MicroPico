@@ -26,4 +26,7 @@ Example displays data in terminal when movement occurs and then turns on led for
 (Common for PIR and Break Beam)
 
 #### Schema
+
+Common schema for both examples.
+
 <img src="https://github.com/psp515/MicroPico/blob/IRQElements/images/ir_sensor/pir_schema.png" alt="schema" height=256/>
