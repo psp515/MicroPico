@@ -19,7 +19,7 @@ Example turns on led when button is pressed and instantly turn it off when butto
 Example turns on led when button is pressed for one second. 
 If button is pressed in this 1 second led on state is extended to one second.
 
-##### Schema
+#### Schema
 
 Common wire schema for both examples
 
