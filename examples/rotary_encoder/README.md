@@ -8,7 +8,7 @@ A rotary encoder is a type of electro-mechanical device that is used to convert 
 or axle to an analog or digital signal. It is also known as a shaft encoder or rotary pulse generator.
 
 There are variable realisatios of such an encoder like:
-- optical
+- Optical
 - Mechanical
 - On-Axis Magnetic
 - Off-Axis Magnetic.
