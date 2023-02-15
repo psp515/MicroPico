@@ -18,7 +18,7 @@ Example reads data and display it.
 
 Example reads data and display it with dht module from micropython.
 
-##### Schema
+#### Schema
 
 Both examples uses same schema.
 
