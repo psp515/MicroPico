@@ -5,9 +5,6 @@
 <br/>
 
 Keypad is simple keyboard, works a bit simpler than normal keyboard beacuse it needs less pins than normal keyboard.
-### Electric Symbol
-
-Not found.
 
 ### Examples 1
 
