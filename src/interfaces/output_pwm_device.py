@@ -1,5 +1,5 @@
 from machine import PWM, Pin
-from src.const import MAX_PWM_DUTY, MIN_FREQ, MAX_FREQ
+from src.const import MAX_PWM_DUTY, MIN_FREQ, MAX_FREQ, DEFAULT_SPAN
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_device import OutputDevice
 
@@ -53,7 +53,7 @@ class OutputDevicePWM(OutputDevice):
 
         self._init_pin.freq=freq
 
-    def value(self, value: int = None, animate_ms: int = 200):
+    def value(self, value: int = None, animate_ms: int = DEFAULT_SPAN):
         """
         Turn on device with specified value from range 0-65535 or turn's led on maximal duty.
         Could be used to animate value change.
@@ -73,7 +73,7 @@ class OutputDevicePWM(OutputDevice):
 
         self._state = DeviceState.ON
 
-    def on(self, animate_ms: int = 200):
+    def on(self, animate_ms: int = DEFAULT_SPAN):
         """
         Turn on device with maximal duty.
         Could be used to animate value change.
@@ -92,7 +92,7 @@ class OutputDevicePWM(OutputDevice):
 
         self._state = DeviceState.ON
 
-    def off(self, animate_ms: int = 200):
+    def off(self, animate_ms: int = DEFAULT_SPAN):
         """
         Turns device off.
 
@@ -109,7 +109,7 @@ class OutputDevicePWM(OutputDevice):
 
         self._state = DeviceState.OFF
 
-    def toggle(self, animate_ms: int = 200):
+    def toggle(self, animate_ms: int = DEFAULT_SPAN):
         """
         Toggles device state.
 

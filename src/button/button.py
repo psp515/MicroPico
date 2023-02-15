@@ -1,4 +1,3 @@
-from src.enums.button_state import ButtonState
 from src.enums.state_enum import DeviceState
 from src.interfaces.input_device import InputDevice
 from utime import ticks_ms, ticks_diff, sleep_ms

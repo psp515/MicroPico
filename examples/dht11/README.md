@@ -10,16 +10,18 @@ Digital Humidity & Temperature sensor (DHT) is low cost digital sensors with cap
 
 Not found.
 
-### Examples
-
-**Example 1**
+### Example
 
 Example reads data and display it.
 
-**Example Micropython**
+### Example Micropython
 
 Example reads data and display it with dht module from micropython.
 
+##### Schema
 
-### Schema
-<img src="https://github.com/psp515/MicroPico/blob/main/images/dht11/dht11_schema.png" alt="symbol" height=256/>
+Both examples uses same schema.
+
+<img src="https://github.com/psp515/MicroPico/blob/main/images/dht11/dht11_schema.png" alt="schema" height=256/>
+
+

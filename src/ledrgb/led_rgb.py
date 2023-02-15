@@ -1,4 +1,4 @@
-from src.const import MAX_PWM_DUTY, BLINK_SPAN_MS
+from src.const import MAX_PWM_DUTY, BLINK_SPAN_MS, DEFAULT_SPAN
 from src.enums.reg_led_type import LedRGBType
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_pwm_device import OutputDevicePWM
@@ -96,7 +96,7 @@ class LedRGB(OutputDevicePWM):
 
         self._state = DeviceState.ON
 
-    def off(self, animate_ms=200):
+    def off(self, animate_ms=DEFAULT_SPAN):
         """
         Turn's led off.
 

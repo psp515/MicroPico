@@ -1,10 +1,11 @@
 from src.photoresistor.photoresistor import Photoresistor
 from src.potentiometer.potentiometer import Potentiometer
-from src.pir.pir import PIR
+from src.ir_sensor.ir_sensor import IRSensor
+from src.ir_sensor.ir_sensor_irq import IRSensorIRQ
 from src.ultrasonic.ultrasonic import Ultrasonic
 from src.keypad.keypad import Keypad
 from src.button.button import Button
-from src.button.irq_button import ButtonIRQ
+from src.button.button_irq import ButtonIRQ
 from src.led.led import Led
 from src.led.led_pwm import LedPWM
 from src.ledrgb.led_rgb import LedRGB
@@ -17,6 +18,7 @@ from src.enums.temperature_units_enum import TemperatureUnit, get_temperatureuni
 from src.enums.state_enum import DeviceState
 from src.enums.reg_led_type import LedRGBType
 from src.enums.rotary_encoder_action import RotaryEncoderAction
+from src.enums.ir_sensor_type import IRSensorType
 
 # Tools
 from src.tools.temperature_converter import TemperatureConverter

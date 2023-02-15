@@ -1,7 +1,6 @@
-from micropico import ButtonIRQ
+from micropico import IRSensorIRQ
 from utime import sleep, ticks_diff, ticks_ms, ticks_add
 from machine import Pin
-
 
 led = Pin(25, Pin.OUT)
 global ticks
@@ -16,7 +15,9 @@ def callback(pin):
     ticks = ticks_add(ticks_ms(), 1000)
 
 
-button = ButtonIRQ(0, callback)
+# Works or PIR and Beam-Break beacause it bases
+# on state change not on state value
+ir = IRSensorIRQ(28, callback)
 
 print("Program Starting")
 sleep(1)
