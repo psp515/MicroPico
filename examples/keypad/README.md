@@ -9,16 +9,15 @@ Keypad is simple keyboard, works a bit simpler than normal keyboard beacuse it n
 
 Not found.
 
-### Examples
-
-**Example 1**
+### Examples 1
 
 Example shows how 4x4 keyboard works.
 
-**Example 2**
-
+### Example 2
 Example shows how 4(rows)x3(columns) keyboard works. (same schema)
 
+#### Schema
 
-### Schema
+Common wire schema for examples.
+
 <img src="https://github.com/psp515/MicroPico/blob/main/images/keypad/keypad_schema.png" alt="symbol" height=256/>
