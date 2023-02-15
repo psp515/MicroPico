@@ -6,12 +6,8 @@
 
 RGB led is combination of 3 leds, red(r), green(g) and blue(b). This combination allows to create a lot of colors. RGB led can be connected in 2 ways - common cathode(power is supplyed by r,g,b pin), common anode (power is supplyed by one pin).
 
-### Electric Symbol
-Not Found.
+### Example
 
-### Examples
-
-Example 
 Example is showace of base functions (led with common anode).
 
 #### Schema
