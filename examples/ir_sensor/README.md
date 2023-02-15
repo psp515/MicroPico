@@ -15,10 +15,6 @@ it triggers an alarm.
 Break beam sensors, work by using a beam of light that is broken when an object or person passes through it. 
 The sensor consists of two parts, a transmitter and a receiver (diodes). When the beam is broken, the sensor triggers an alarm.
 
-### Electric Symbol
-
-Not found.
-
 ### IR Sensor Example
 
 Example displays data in terminal when movement occurs and then turns on led for 1 second.
@@ -29,5 +25,5 @@ Example displays data in terminal when movement occurs and then turns on led for
 Example displays data in terminal when movement occurs and then turns on led for 1 second.
 (Common for PIR and Break Beam)
 
-##### Schema
-<img src="https://github.com/psp515/MicroPico/blob/main/images/ir_sensor /pir_schema.png" alt="symbol" height=256/>
+#### Schema
+<img src="https://github.com/psp515/MicroPico/blob/IRQElements/images/ir_sensor/pir_schema.png" alt="schema" height=256/>
