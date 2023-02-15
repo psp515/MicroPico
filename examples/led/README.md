@@ -4,7 +4,7 @@
 </div>  
 <br/>
 
-Light-emitting diode (LED) uses electroluminescence, when excess energy is generated in the diode, energy is emitted as light.
+Light-emitting diode (LED) is a semiconductor device that emits light when current flows through it. Electrons in the semiconductor recombine with electron holes, releasing energy in the form of photons. The color of the light (corresponding to the energy of the photons) is determined by the energy required for electrons to cross the band gap of the semiconductor (led can produce visible, infrared and uv waves)(beam break ir sensor is a example of use a infrared diode).
 
 ### Electric Symbol
 
