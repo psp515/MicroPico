@@ -22,4 +22,4 @@ Example contains only rotary encoder with button. When clicked or rotated it sho
 If rotation occurred, also displays position of encoder.
 
 #### Schema
-<img src="" alt="schema" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/rotary_encoder/ex_schema.png" alt="schema" height=256/>

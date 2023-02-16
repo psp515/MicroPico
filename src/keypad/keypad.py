@@ -13,8 +13,8 @@ class Keypad(InputDevice):
     """
     Class for managing simple keypad (4x4 5x4 etc.).
     """
-    _horizontal_init_pins: array
-    _vertical_init_pins: array
+    _horizontal_initialized_pin: array
+    _vertical_initialized_pins: array
     _keyboard: array
     _pin: []
     _pressed_span: int
@@ -30,8 +30,8 @@ class Keypad(InputDevice):
                         ["7", "8", "9", "C"],
                         ["*", "0", "#", "D"]]
 
-        self._horizontal_init_pins = []
-        self._vertical_init_pins = []
+        self._horizontal_initialized_pin = []
+        self._vertical_initialized_pins = []
 
         if len(horizontal_pins) != len(keyboard) or len(vertical_pins) != len(keyboard[0]):
             raise InvalidKeyboardException("Passed keyboard does not match pins.")
@@ -81,7 +81,7 @@ class Keypad(InputDevice):
         """
         :return: Returns list [vertical pins, horizontal pins].
         """
-        return [self._vertical_init_pins, self._horizontal_init_pins]
+        return [self._vertical_initialized_pins, self._horizontal_initialized_pin]
 
     @property
     def pin(self):
@@ -98,7 +98,7 @@ class Keypad(InputDevice):
         """
 
         for pin in pins:
-            self._horizontal_init_pins.append(Pin(pin, Pin.OUT))
+            self._horizontal_initialized_pin.append(Pin(pin, Pin.OUT))
 
     def _init_vertical_pins(self, pins):
         """
@@ -108,7 +108,7 @@ class Keypad(InputDevice):
         """
 
         for pin in pins:
-            self._vertical_init_pins.append(Pin(pin, Pin.IN, Pin.PULL_DOWN))
+            self._vertical_initialized_pins.append(Pin(pin, Pin.IN, Pin.PULL_DOWN))
 
     def read(self):
         """
@@ -131,14 +131,14 @@ class Keypad(InputDevice):
         if diff < self._pressed_span:
             sleep_ms(self._pressed_span - diff)
 
-        for row in range(len(self._horizontal_init_pins)):
-            self._horizontal_init_pins[row].value(1)
-            for col in range(len(self._vertical_init_pins)):
-                if self._vertical_init_pins[col].value() == 1:
-                    self._horizontal_init_pins[row].value(0)
+        for row in range(len(self._horizontal_initialized_pin)):
+            self._horizontal_initialized_pin[row].value(1)
+            for col in range(len(self._vertical_initialized_pins)):
+                if self._vertical_initialized_pins[col].value() == 1:
+                    self._horizontal_initialized_pin[row].value(0)
                     self._last_read = ticks_ms()
                     return self._keyboard[row][col]
 
-            self._horizontal_init_pins[row].value(0)
+            self._horizontal_initialized_pin[row].value(0)
 
         return ""

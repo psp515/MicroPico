@@ -12,9 +12,9 @@ class IRQDevice(Device):
     def __init__(self, pin: int, callback, trigger: int, pull: int, span_ms: int = DEFAULT_SPAN):
         super().__init__(pin)
         self._trigger_span = span_ms
-        self._init_pin = Pin(pin, Pin.IN, pull)
+        self._initialized_pin = Pin(pin, Pin.IN, pull)
         self._callback = callback
-        self._init_pin.irq(trigger=trigger, handler=self._do_callback)
+        self._initialized_pin.irq(trigger=trigger, handler=self._do_callback)
         self._state = DeviceState.ON
 
     @property
@@ -48,6 +48,9 @@ class IRQDevice(Device):
         self._callback = callback
 
     def _do_callback(self, pin):
+        """
+        Function created for performing other actions before calling function callback.
+        """
         if self._state is DeviceState.BUSY:
             return
 
@@ -59,4 +62,4 @@ class IRQDevice(Device):
 
     def __str__(self):
         return super(IRQDevice, self).__str__() + \
-               f"Class: {Device.__class__.__name__}\n"
+               f"Class: {self.__class__.__name__}\n"

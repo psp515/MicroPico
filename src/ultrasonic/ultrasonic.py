@@ -13,7 +13,7 @@ class Ultrasonic(InputDevice):
     precision: int
     unit: LengthUnit
     _pin: []
-    _init_pin: []
+    _initialized_pin: []
 
     def __init__(self,
                  trigger_pin: int,
@@ -30,7 +30,7 @@ class Ultrasonic(InputDevice):
         """
 
         self._pin = [trigger_pin, echo_pin]
-        self._init_pin = [Pin(trigger_pin, Pin.OUT), Pin(echo_pin, Pin.IN)]
+        self._initialized_pin = [Pin(trigger_pin, Pin.OUT), Pin(echo_pin, Pin.IN)]
 
         self.trigger.low()
         self.unit = unit
@@ -42,7 +42,7 @@ class Ultrasonic(InputDevice):
         """
         :return: Pin object representing device with list [trigger, echo].
         """
-        return self._init_pin
+        return self._initialized_pin
 
     @property
     def pin(self):
@@ -56,14 +56,14 @@ class Ultrasonic(InputDevice):
         """
         :return: Returns echo pin.
         """
-        return self._init_pin[1]
+        return self._initialized_pin[1]
 
     @property
     def trigger(self):
         """
         :return: Returns trigger pin.
         """
-        return self._init_pin[0]
+        return self._initialized_pin[0]
 
     @property
     def distance(self):

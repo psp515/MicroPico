@@ -8,13 +8,13 @@ class OutputDevicePWM(OutputDevice):
     """
     Base class for pwm output devices.
     """
-    _init_pin: PWM
+    _initialized_pin: PWM
 
     def __init__(self, pin: int, frequency: int = 1000):
         self._pin = pin
-        self._init_pin = PWM(Pin(pin))
-        self._init_pin.freq(frequency)
-        self._init_pin.duty_u16(0)
+        self._initialized_pin = PWM(Pin(pin))
+        self._initialized_pin.freq(frequency)
+        self._initialized_pin.duty_u16(0)
         self._state = DeviceState.OFF
 
     @property
@@ -24,7 +24,7 @@ class OutputDevicePWM(OutputDevice):
 
         :return: Device duty.
         """
-        return self._init_pin.duty_u16()
+        return self._initialized_pin.duty_u16()
 
     @duty.setter
     def duty(self, duty):
@@ -32,14 +32,14 @@ class OutputDevicePWM(OutputDevice):
         :param duty: Duty to be set on element.
         """
         duty = self._validate_duty(duty)
-        self._init_pin.duty_u16(duty)
+        self._initialized_pin.duty_u16(duty)
 
     @property
     def freq(self):
         """
         :return: Device current frequency.
         """
-        return self._init_pin.freq()
+        return self._initialized_pin.freq()
 
     @freq.setter
     def freq(self, freq):
@@ -51,7 +51,7 @@ class OutputDevicePWM(OutputDevice):
         if freq < MIN_FREQ or freq > MAX_FREQ:
             return
 
-        self._init_pin.freq=freq
+        self._initialized_pin.freq=freq
 
     def value(self, value: int = None, animate_ms: int = DEFAULT_SPAN):
         """
@@ -69,7 +69,7 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._calc_duty(value)
 
-        self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, animate_ms)
+        self._gently(self._initialized_pin.duty_u16, self._initialized_pin.duty_u16(), duty, animate_ms)
 
         self._state = DeviceState.ON
 
@@ -88,7 +88,7 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._on_duty()
 
-        self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, animate_ms)
+        self._gently(self._initialized_pin.duty_u16, self._initialized_pin.duty_u16(), duty, animate_ms)
 
         self._state = DeviceState.ON
 
@@ -105,7 +105,7 @@ class OutputDevicePWM(OutputDevice):
 
         duty = self._off_duty()
 
-        self._gently(self._init_pin.duty_u16, self._init_pin.duty_u16(), duty, animate_ms)
+        self._gently(self._initialized_pin.duty_u16, self._initialized_pin.duty_u16(), duty, animate_ms)
 
         self._state = DeviceState.OFF
 

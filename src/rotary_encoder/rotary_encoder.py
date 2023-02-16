@@ -10,14 +10,14 @@ class RotaryEncoder(InputDevice):
     Class represents rotary encoder with button. Encoder detects rotations clockwise and counterclockwise.
     """
     _pin: []
-    _init_pin: []
+    _initialized_pin: []
 
     # noinspection PyMissingConstructor
     def __init__(self, clk: int, dt: int, sw: int, min_pos: int = 0, max_pos: int = 100):
         self._pin = [clk, dt, sw]
-        self._init_pin = [Pin(clk, Pin.IN, Pin.PULL_UP),
-                          Pin(dt, Pin.IN, Pin.PULL_UP),
-                          Pin(sw, Pin.IN, Pin.PULL_UP)]
+        self._initialized_pin = [Pin(clk, Pin.IN, Pin.PULL_UP),
+                                 Pin(dt, Pin.IN, Pin.PULL_UP),
+                                 Pin(sw, Pin.IN, Pin.PULL_UP)]
         self._prev = self.clk.value()
         self._pos = 0
         self._state = DeviceState.ON
@@ -51,21 +51,21 @@ class RotaryEncoder(InputDevice):
         """
         Clk input pin.
         """
-        return self._init_pin[0]
+        return self._initialized_pin[0]
 
     @property
     def dt(self):
         """
         dt input pin.
         """
-        return self._init_pin[1]
+        return self._initialized_pin[1]
 
     @property
     def sw(self):
         """
         sw input pin.
         """
-        return self._init_pin[2]
+        return self._initialized_pin[2]
 
     @property
     def initialized_pin(self):
@@ -73,7 +73,7 @@ class RotaryEncoder(InputDevice):
         Represents used initialized pins for device.
         :return: List of Pin objects (clk, dt, sw).
         """
-        return self._init_pin
+        return self._initialized_pin
 
     @property
     def pin(self):
@@ -109,11 +109,11 @@ class RotaryEncoder(InputDevice):
         return action
 
     def _read(self):
-        val = self._init_pin[0].value()
+        val = self._initialized_pin[0].value()
 
         if val != self._prev:
             if val == 0:
-                if self._init_pin[1].value() == 0:
+                if self._initialized_pin[1].value() == 0:
                     self._pos = max(self._min_pos, self._pos - 1)
                     self._prev = val
                     return RotaryEncoderAction.CounterClockwise

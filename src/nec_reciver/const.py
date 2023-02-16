@@ -1,0 +1,15 @@
+PULSES = 34
+EDGES = PULSES * 2
+
+TRIGGER_TIME_MS = 70
+
+START_MIN_ONE_BIT_US = 6000
+START_MIN_ZERO_BIT_US = 1500
+
+REPEAT_US = 2500
+
+# 562.5 us 1 state and 562.5 us 0 state
+ZERO_BIT_US = 1125
+
+# 562.5 us 1 state and 1687.5 us 0 state
+ONE_BIT_US = 2250

@@ -16,4 +16,4 @@ When the ultrasonic wave is emitted, it travels through the air at a constant sp
 Example reads distance 4 times every few seconds and displays calculations with different units.
 
 #### Schema
-<img src="https://github.com/psp515/MicroPico/blob/main/images/ultrasonic/ultrasonic_schema.png" alt="symbol" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/ultrasonic/ultrasonic_schema.png" alt="schema" height=256/>
