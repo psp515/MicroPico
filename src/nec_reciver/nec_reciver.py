@@ -1,10 +1,9 @@
 from utime import ticks_diff
-
 from src.enums.receiver_enum import ReceiveState
 from src.enums.state_enum import DeviceState
 from src.interfaces.ir_rx_irq import IRReceiverIRQ
-from src.nec_reciver.const import EDGES, TRIGGER_TIME_MS, START_MIN_ONE_BIT_US, START_MIN_ZERO_BIT_US, REPEAT_US,\
-    ZERO_BIT_US
+from src.nec_reciver.const import EDGES, TRIGGER_TIME_MS, START_MIN_ONE_BIT_US, START_MIN_ZERO_BIT_US, REPEAT_US, \
+    ZERO_BIT_US, START_MAX_ZERO_REPEAT_BIT_US
 from src.tools.ir_receive_message import IRReceiveMessage
 
 
@@ -16,21 +15,26 @@ class NECReceiver(IRReceiverIRQ):
     def __init__(self, pin: int, callback):
         super().__init__(pin, callback, EDGES, TRIGGER_TIME_MS)
 
-    def _parse_data(self):
+    def _parse_data(self, timer):
         message = None
-
+        pulses_count = len(self._pulses)
         try:
-            if self._edges > 68:
+            if self._number_of_edges < pulses_count:
                 raise RuntimeError(ReceiveState.OVERRUN)
 
             start_one_width = ticks_diff(self._pulses[1], self._pulses[0])
+
+            if start_one_width < START_MIN_ONE_BIT_US:
+                raise RuntimeError(ReceiveState.BAD_START)
+
             start_zero_width = ticks_diff(self._pulses[2], self._pulses[1])
 
-            if self._edges < 68 and start_zero_width > START_MIN_ZERO_BIT_US:
-                raise RuntimeError(ReceiveState.BAD_BLOCK)
-
-            if start_one_width < START_MIN_ONE_BIT_US or start_zero_width < START_MIN_ZERO_BIT_US:
+            # TODO  save prev if repeat send prev.
+            
+            if start_zero_width < START_MAX_ZERO_REPEAT_BIT_US and self._number_of_edges == pulses_count:
                 raise RuntimeError(ReceiveState.BAD_START)
+            elif start_zero_width > START_MAX_ZERO_REPEAT_BIT_US and pulses_count < self._number_of_edges :
+                raise RuntimeError(ReceiveState.BAD_BLOCK)
 
             address = self._get_byte(3, 19, self._pulses)
             address_complement = self._get_byte(19, 35, self._pulses)

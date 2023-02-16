@@ -55,8 +55,8 @@ class IRReceiveMessage:
 
     def __str__(self):
         if self._state is ReceiveState.OK or self._state is ReceiveState.REPEAT:
-            return f"State: {self._state}" \
-                   f"Command: {self._command}" \
-                   f"Address: {self._address}"
+            return f"State: {self._state}\n" + \
+                   f"Command: {self._command}\n" + \
+                   f"Address: {self._address}\n"
 
         return f"State: {self._state}"
