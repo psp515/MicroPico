@@ -14,9 +14,9 @@ Device is best to use with interrupts.
 
 ### Example 
 
-Example every 3 seconds displays number of received commands and number of valid received commands.
-If any message will be received by IR sensor program additionally displays number of received command.
+Example every few seconds displays number of received commands and number of valid received commands.
+If any message will be received by IR sensor program additionally displays received command.
 
 #### Schema
-<img src="" alt="schema" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/nec_receiver/ex_schema.png" alt="schema" height=256/>
 

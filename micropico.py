@@ -11,7 +11,7 @@ from src.led.led_pwm import LedPWM
 from src.ledrgb.led_rgb import LedRGB
 from src.dht11.dht11 import DHT11
 from src.rotary_encoder.rotary_encoder import RotaryEncoder
-from src.nec_reciver.nec_reciver import NECReceiver
+from src.nec_receiver.nec_receiver import NECReceiver
 
 # Enums
 from src.enums.length_units_enum import LengthUnit

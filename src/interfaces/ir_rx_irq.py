@@ -33,4 +33,4 @@ class IRReceiverIRQ(IRQDevice):
 
     def __str__(self):
         return super(IRReceiverIRQ, self).__str__() + \
-               f"Class: {self.__class__.__name__}\n"
+               f"Class: IRReceiverIRQ\n"

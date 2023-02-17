@@ -62,4 +62,4 @@ class IRQDevice(Device):
 
     def __str__(self):
         return super(IRQDevice, self).__str__() + \
-               f"Class: {self.__class__.__name__}\n"
+               f"Class: IRQDevice\n"

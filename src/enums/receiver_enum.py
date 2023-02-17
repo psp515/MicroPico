@@ -8,3 +8,6 @@ class ReceiveState:
     OVERRUN = -3
     BAD_DATA = -4
     BAD_ADDRESS = -5
+    BAD_LAST_DATA = -6
+    BAD_LAST_ADDRESS = -7
+

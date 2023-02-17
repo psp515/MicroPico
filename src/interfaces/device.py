@@ -42,5 +42,5 @@ class Device:
     def __str__(self):
         return f"Pin: {self._pin},\n" + \
                f"State: {self._state},\n" + \
-               f"Pin type: {self._initialized_pin.__class__.__name__}\n" + \
-               f"Class: {Device.__class__.__name__}\n"
+               f"Pin type: {self._initialized_pin}\n" + \
+               f"Class: Device\n"

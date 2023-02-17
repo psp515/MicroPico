@@ -21,4 +21,4 @@ ANSI standard
 Example reads value from adc pin and displays it in range 0-65535 and in 0-100%.
 
 #### Schema
-<img src="https://github.com/psp515/MicroPico/blob/main/images/potentiometr/potentiometr_schema.png" alt="schema" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/potentiometr/ex_schema.png" alt="schema" height=256/>

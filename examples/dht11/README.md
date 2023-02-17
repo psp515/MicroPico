@@ -12,7 +12,7 @@ Not found.
 
 ### Example
 
-Example reads data and display it.
+Example reads data and display it every few seconds.
 
 ### Example Micropython
 
@@ -22,6 +22,6 @@ Example reads data and display it with dht module from micropython.
 
 Both examples uses same schema.
 
-<img src="https://github.com/psp515/MicroPico/blob/main/images/dht11/dht11_schema.png" alt="schema" height=256/>
+<img src="https://github.com/psp515/MicroPico/blob/main/images/dht11/ex_schema.png" alt="schema" height=256/>
 
 
