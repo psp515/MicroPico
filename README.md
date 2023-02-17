@@ -91,6 +91,7 @@ Ultrasonic | ✅  | ✅ | ✅ | ✅
 DHT11 | ✅ | ✅ | ✅ | ✅
 Rotary Encoder | ✅ | ✅ | ✅ | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
+LCD | ❌  | ❌ | ❌ | ❌
 
 #### Interrupts
 
