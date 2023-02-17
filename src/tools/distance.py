@@ -35,6 +35,3 @@ class Distance:
     def __str__(self):
         return f"{self._distance} {get_lengthunit_shortname(self._unit)}"
 
-    def change_unit(self, unit: LengthUnit, precision: int = 1):
-        pass
-

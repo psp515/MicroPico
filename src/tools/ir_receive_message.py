@@ -53,9 +53,6 @@ class IRReceiveMessage:
         """
         return True if self._state is ReceiveState.OK or self._state is ReceiveState.REPEAT else False
 
-
-    #TODO state to string
-
     def __str__(self):
         if self._state is ReceiveState.OK or self._state is ReceiveState.REPEAT:
             return f"State: {self._state}\n" + \
