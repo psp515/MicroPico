@@ -63,41 +63,45 @@ Also in futre I am planning to create few project based on knowledge gained here
 
 ### Getting Started
 
-To use this project simply downolad the [ThonnyIDE](https://thonny.org/) and this repository.
+To use this project simply download the [ThonnyIDE](https://thonny.org/) and this repository.
 <br/>
-Ofcourse you need to have any Raspberry Pi Pico board (with micropython) and element you want to check.
-(In order to use it on Raspbery Pi some functions may need some slight fixes)
+Of course you need to have any Raspberry Pi Pico board (with micropython) and element you want to check.
+(In order to use it on Raspberry Pi some functions may need some slight fixes)
 
-With thonny IDE open Micropico projcet and upload src folder and micropico.py to your raspberry pi pico and you are ready to run some examples.
-
-### Usage 
-
-You may want to use this repository in order to see how easy is to create programs with micropython or to see how elements might work and how to connect them properly.
+With thonny IDE open Micropico project and upload src folder and micropico.py to your raspberry pi pico, and you are ready to run some examples.
 
 ### Roadmap
 
-Elements with added code examples and simple usage examples.
+Roadmap shows elements to be added / that are ready to use with usage examples. Elements split in 2 categories Pooling and Interrupts (I thinks most elements could be in both category but for some elements it is worthless). 
+
+#### Pooling
+
+Polling periodically checks if device needs attention. This can be done in a sequential manner or in a priority-based manner (if some devices are more important).
 
 Element  | Lib Code | Example | Schema | Tested
 :-: | :-: | :-: | :-: | :-:
 Led | ✅  | ✅  | ✅ | ✅
 RGB Led | ✅  | ✅ | ✅ | ✅
 Keypad | ✅ | ✅ | ✅ |✅
-PIR | ✅  | ✅ | ✅ | ✅
-IR Break Line | ✅  | ✅ | ✅ | ✅
+PIR / IR Break Sensor | ✅  | ✅ | ✅ | ✅
 Button | ✅  | ✅ | ✅ | ✅
 Potentiometer | ✅  | ✅ | ✅ | ✅
 Photoresistor  | ✅  | ✅ | ✅ | ✅
 Ultrasonic | ✅  | ✅ | ✅ | ✅
 DHT11 | ✅ | ✅ | ✅ | ✅
-Rotary Encoder | ✅ | ✅ | ❌ | ✅
+Rotary Encoder | ✅ | ✅ | ✅ | ✅
 I2C LCD | ❌  | ❌ | ❌ | ❌
-NEC IR | ❌  | ❌ | ❌ | ❌
 
-(Lib Code - means libary code for input/output device,
-Example - means meas small showcase of working functions,
-Schema - means screen with connection example to board ,
-Tested - means example working as expected)
+#### Interrupts
+
+Interrupts alert CPU when a device needs attention, causing the CPU to pause its current task, handle the interrupt request, and then resume the original task.
+
+Element  | Lib Code | Example | Schema | Tested
+:-: | :-: | :-: | :-: | :-:
+Button | ✅  | ✅ | ✅ | ✅
+PIR / IR Break Sensor | ✅  | ✅ | ✅ | ✅
+Rotary Encoder | ❌  | ❌ | ❌ | ❌
+NEC IR | ✅  | ✅ | ✅ | ✅
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 

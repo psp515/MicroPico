@@ -8,5 +8,5 @@ while True:
     print(f"--------- Read {i} ----------")
     print(f"Temperature: {sensor.temperature}")
     print(f"Humidity: {sensor.humidity}")
-    i+=1
+    i += 1
     sleep(2)

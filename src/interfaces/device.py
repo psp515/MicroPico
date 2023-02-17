@@ -9,11 +9,12 @@ class Device:
 
     _pin: int
     _state: DeviceState
-    _init_pin: Pin
+    _initialized_pin: Pin
 
     def __init__(self, pin: int):
         self._pin = pin
         self._state = DeviceState.OFF
+        self._initialized_pin = None
 
     @property
     def initialized_pin(self):
@@ -21,7 +22,7 @@ class Device:
         Represents used initialized pins for device.
         :return: Pin object representing device.
         """
-        return self._init_pin
+        return self._initialized_pin
 
     @property
     def pin(self):
@@ -41,5 +42,5 @@ class Device:
     def __str__(self):
         return f"Pin: {self._pin},\n" + \
                f"State: {self._state},\n" + \
-               f"Device type: {self._init_pin.__class__.__name__}\n" + \
-               f"Class: {Device.__class__.__name__}\n"
+               f"Pin type: {self._initialized_pin}\n" + \
+               f"Class: Device\n"

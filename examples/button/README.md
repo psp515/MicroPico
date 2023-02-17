@@ -10,10 +10,18 @@ In electronics, a button is a device that can be used to open or close a circuit
 
 <img src="https://github.com/psp515/MicroPico/blob/main/images/button/button.png" alt="symbol" height=64/>
 
-### Examples
+### Button Example
 
-**Example 1**
-Example turns on led when button is pressed.
+Example turns on led when button is pressed and instantly turn it off when button is not pressed.
 
-### Schema
-<img src="https://github.com/psp515/MicroPico/blob/main/images/pir/pir_schema.png" alt="symbol" height=256/>
+#### Schema
+<img src="https://github.com/psp515/MicroPico/blob/IRQElements/images/button/ex_schema.png" alt="schema" height=256/>
+
+### ButtonIRQ Example
+
+Example turns on led when button is pressed for one second. 
+If button is pressed in this 1 second led on state is extended to one second.
+
+#### Schema 
+<img src="" alt="schema" height=256/>
+

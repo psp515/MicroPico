@@ -10,7 +10,7 @@ class AnalogInputDevice(Device):
     Class for managing adc sensor.
     """
     input_voltage: float
-    _init_pin: ADC
+    _initialized_pin: ADC
 
     def __init__(self, pin: int, threshold: int = int(0.01 * MAX_ADC), input_voltage=PICO_PIN_VOLTAGE):
         """
@@ -21,7 +21,7 @@ class AnalogInputDevice(Device):
         """
         super().__init__(pin)
 
-        self._init_pin = ADC(Pin(pin))
+        self._initialized_pin = ADC(Pin(pin))
         self._threshold = threshold
         self.input_voltage = input_voltage
         self._state = DeviceState.ON
@@ -31,7 +31,7 @@ class AnalogInputDevice(Device):
         """
         :return: ADC object representing device.
         """
-        return self._init_pin
+        return self._initialized_pin
 
     @property
     def max_read_value(self):
@@ -110,9 +110,9 @@ class AnalogInputDevice(Device):
         return voltage
 
     def _value(self):
-        value = self._init_pin.read_u16()
+        value = self._initialized_pin.read_u16()
         return value if value >= self.threshold else 0
 
     def __str__(self):
         super(AnalogInputDevice, self).__str__() + \
-        f"Class: {self.__class__.__name__}\n"
+        f"Class: AnalogInputDevice\n"

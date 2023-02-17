@@ -10,7 +10,7 @@ class OutputDevice(Device):
 
     def __init__(self, pin: int):
         super().__init__(pin)
-        self._init_pin = Pin(pin, Pin.OUT)
+        self._initialized_pin = Pin(pin, Pin.OUT)
 
     def on(self):
         """
@@ -19,7 +19,7 @@ class OutputDevice(Device):
         if self._state is DeviceState.ON or self._state is DeviceState.BUSY:
             return
 
-        self._init_pin.value(1)
+        self._initialized_pin.value(1)
         self._state = DeviceState.ON
 
     def off(self):
@@ -29,9 +29,9 @@ class OutputDevice(Device):
         if self._state is DeviceState.OFF or self._state is DeviceState.BUSY:
             return
 
-        self._init_pin.value(0)
+        self._initialized_pin.value(0)
         self._state = DeviceState.OFF
 
     def __str__(self):
-        super(OutputDevice, self).__str__() + \
-        f"Class: {self.__class__.__name__}\n"
+        return super(OutputDevice, self).__str__() + \
+        f"Class: OutputDevice\n"

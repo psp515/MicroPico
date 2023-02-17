@@ -14,5 +14,5 @@ Photoresistor, also known as a light-dependent resistor (LDR), is a type of resi
 
 Example is simple it read's value from pin every second and displays it.
 
-### Schema
-<img src="https://github.com/psp515/MicroPico/blob/main/images/photoresistor/photoresistor_schema2.png" alt="schema" height=256/>
+#### Schema
+<img src="https://github.com/psp515/MicroPico/blob/main/images/photoresistor/ex_schema.png" alt="schema" height=256/>

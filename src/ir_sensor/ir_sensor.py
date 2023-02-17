@@ -2,17 +2,19 @@ from time import ticks_us
 
 from machine import Pin
 
+from src.enums.ir_sensor_type import IRSensorType
 from src.enums.state_enum import DeviceState
 from src.interfaces.input_device import InputDevice
 
 
-class PIR(InputDevice):
+class IRSensor(InputDevice):
     """
     Class represents PIR motion sensor.
     """
-    def __init__(self, pin: int, pull: Pin = Pin.PULL_UP):
+    def __init__(self, pin: int, type: IRSensorType, pull: Pin = Pin.PULL_UP):
         super().__init__(pin, pull)
         self._last_movement = -1
+        self._type = type
 
     @property
     def movement(self):
@@ -25,7 +27,7 @@ class PIR(InputDevice):
 
         self._state = DeviceState.BUSY
 
-        moved = bool(self._read())
+        moved = self._parse(self._read())
 
         if moved == 0:
             self._last_movement = ticks_us()
@@ -34,4 +36,9 @@ class PIR(InputDevice):
 
         return moved
 
+    def _parse(self, value):
+        if self._type is IRSensorType.PIR:
+            return bool(value)
+
+        return bool((value+1) % 2)
 

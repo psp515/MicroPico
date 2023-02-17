@@ -1,4 +1,4 @@
-from src.const import MAX_PWM_DUTY, BLINK_SPAN_MS
+from src.const import MAX_PWM_DUTY, BLINK_SPAN_MS, DEFAULT_SPAN
 from src.enums.reg_led_type import LedRGBType
 from src.enums.state_enum import DeviceState
 from src.interfaces.output_pwm_device import OutputDevicePWM
@@ -7,16 +7,16 @@ from machine import Pin, PWM
 
 class LedRGB(OutputDevicePWM):
     _pin: []
-    _init_pin: []
+    _initialized_pin: []
 
     # noinspection PyMissingConstructor
     def __init__(self, red_pin, green_pin, blue_pin, led_type: LedRGBType, frequency: int = 1000):
         self._led_type = led_type
 
         self._pin = [red_pin, green_pin, blue_pin]
-        self._init_pin = [PWM(Pin(red_pin)), PWM(Pin(green_pin)), PWM(Pin(blue_pin))]
+        self._initialized_pin = [PWM(Pin(red_pin)), PWM(Pin(green_pin)), PWM(Pin(blue_pin))]
 
-        for led in self._init_pin:
+        for led in self._initialized_pin:
             led.freq(frequency)
             led.duty_u16(self._off_duty())
 
@@ -48,14 +48,14 @@ class LedRGB(OutputDevicePWM):
         internal_state = self._state
         self._state = DeviceState.BUSY
 
-        old_r = self._init_pin[0].duty_u16()
-        old_g = self._init_pin[1].duty_u16()
-        old_b = self._init_pin[2].duty_u16()
+        old_r = self._initialized_pin[0].duty_u16()
+        old_g = self._initialized_pin[1].duty_u16()
+        old_b = self._initialized_pin[2].duty_u16()
 
         animate_avg = int(max(BLINK_SPAN_MS, blink_ms) / 3)
 
         if internal_state is DeviceState.ON:
-            for led in self._init_pin:
+            for led in self._initialized_pin:
                 self._gently(led.duty_u16, led.duty_u16(), self._off_duty(), animate_avg)
 
         if self._led_type is LedRGBType.Anode:
@@ -64,13 +64,13 @@ class LedRGB(OutputDevicePWM):
             b = MAX_PWM_DUTY - b
 
         for _ in range(n):
-            for led, value in zip(self._init_pin, [r, g, b]):
+            for led, value in zip(self._initialized_pin, [r, g, b]):
                 self._gently(led.duty_u16, led.duty_u16(), value, animate_avg)
-            for led in self._init_pin:
+            for led in self._initialized_pin:
                 self._gently(led.duty_u16, led.duty_u16(), self._off_duty(), animate_avg)
 
         if internal_state is DeviceState.ON:
-            for led, value in zip(self._init_pin, [old_r, old_g, old_b]):
+            for led, value in zip(self._initialized_pin, [old_r, old_g, old_b]):
                 self._gently(led.duty_u16, led.duty_u16(), value, animate_avg)
 
         self._state = internal_state
@@ -91,12 +91,12 @@ class LedRGB(OutputDevicePWM):
 
         animate_avg = int(animate_ms / 3)
 
-        for led in self._init_pin:
+        for led in self._initialized_pin:
             self._gently(led.duty_u16, led.duty_u16(), self._on_duty(), animate_avg)
 
         self._state = DeviceState.ON
 
-    def off(self, animate_ms=200):
+    def off(self, animate_ms=DEFAULT_SPAN):
         """
         Turn's led off.
 
@@ -112,7 +112,7 @@ class LedRGB(OutputDevicePWM):
 
         animate_avg = int(animate_ms / 3)
 
-        for led in self._init_pin:
+        for led in self._initialized_pin:
             self._gently(led.duty_u16, led.duty_u16(), self._off_duty(), animate_avg)
 
         self._state = DeviceState.ON
@@ -142,7 +142,7 @@ class LedRGB(OutputDevicePWM):
 
         animate_avg = int(animate_ms / 3)
 
-        for led, value in zip(self._init_pin, [r, g, b]):
+        for led, value in zip(self._initialized_pin, [r, g, b]):
             self._gently(led.duty_u16, led.duty_u16(), value, animate_avg)
 
         self._state = DeviceState.ON
@@ -159,7 +159,7 @@ class LedRGB(OutputDevicePWM):
         """
         :return: List of LedPWM in order [init_r, init_g, init_b].
         """
-        return self._init_pin
+        return self._initialized_pin
 
     def _off_duty(self):
         """

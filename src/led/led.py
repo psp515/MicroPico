@@ -38,18 +38,18 @@ class Led(OutputDevice):
         self._state = DeviceState.BUSY
 
         if internal_state is DeviceState.ON:
-            self._init_pin.value(0)
+            self._initialized_pin.value(0)
             sleep_ms(BLINK_SPAN_MS)
 
         span = int(blink_ms / 2)
 
         for _ in range(n):
-            self._init_pin.value(1)
+            self._initialized_pin.value(1)
             sleep_ms(span)
-            self._init_pin.value(0)
+            self._initialized_pin.value(0)
             sleep_ms(span)
 
         if internal_state is DeviceState.ON:
-            self._init_pin.value(1)
+            self._initialized_pin.value(1)
 
         self._state = internal_state
