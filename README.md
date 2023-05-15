@@ -90,8 +90,6 @@ Photoresistor  | ✅  | ✅ | ✅ | ✅
 Ultrasonic | ✅  | ✅ | ✅ | ✅
 DHT11 | ✅ | ✅ | ✅ | ✅
 Rotary Encoder | ✅ | ✅ | ✅ | ✅
-I2C LCD | ❌  | ❌ | ❌ | ❌
-LCD | ❌  | ❌ | ❌ | ❌
 
 #### Interrupts
 
@@ -101,8 +99,9 @@ Element  | Lib Code | Example | Schema | Tested
 :-: | :-: | :-: | :-: | :-:
 Button | ✅  | ✅ | ✅ | ✅
 PIR / IR Break Sensor | ✅  | ✅ | ✅ | ✅
-Rotary Encoder | ❌  | ❌ | ❌ | ❌
 NEC IR | ✅  | ✅ | ✅ | ✅
+
+
 
 See the [open issues](https://github.com/psp515/MicroPico/issues) for a full list of tasks (and known issues).
 
